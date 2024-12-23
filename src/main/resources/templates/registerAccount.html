@@ -68,8 +68,12 @@
                                         <input class="form-control" id="inputEmail" name="email" type="email" placeholder="Email"/>
                                         <label for="inputEmail">邮箱</label>
                                     </div>
-                                    <div class="d-grid">
-                                        <input type="submit" class="btn btn-primary" value="注册">
+                                    <div class="d-grid gap-2">
+                                        <!-- 注册按钮 -->
+                                        <button type="submit" class="btn btn-success btn-block">注册</button>
+
+                                        <!-- 返回登录按钮 -->
+                                        <a class="btn btn-primary" th:href="@{/toUserLogin}">转到登录</a>
                                     </div>
                                 </form>
                             </div>
