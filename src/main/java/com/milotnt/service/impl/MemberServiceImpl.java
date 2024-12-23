@@ -6,6 +6,7 @@ import com.milotnt.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,4 +54,16 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> selectByMemberAccount(Integer memberAccount) {
         return memberMapper.selectByMemberAccount(memberAccount);
     }
+
+    @Override
+    public boolean registerMember(Member member) {
+        // 设置办卡时间，默认为当前时间
+        member.setCardTime(String.valueOf(new Date()));
+
+        // 其他默认值设置...
+
+        memberMapper.insertMember(member);
+        return true;
+    }
+
 }

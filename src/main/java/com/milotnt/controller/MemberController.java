@@ -1,22 +1,27 @@
+
 package com.milotnt.controller;
 
 import com.milotnt.pojo.Member;
 import com.milotnt.service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 /**
  * @author MiloTnT [milotntspace@gmail.com]
  * @date 2021/8/16
  */
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -111,5 +116,25 @@ public class MemberController {
         }
         return "selectByMemberAccount";
     }
+    @PostMapping("/userRegister")
+    public String registerMember(@ModelAttribute Member member, Model model) {
+        log.info("Received registration request for member: {}", member);
+        try {
+            if (memberService.registerMember(member)) {
+                model.addAttribute("message", "注册成功！");
+                return "redirect:/member/toAddMember"; // 注册成功后重定向到登录页面
+            } else {
+                model.addAttribute("error", "注册失败，请重试！");
+                model.addAttribute("member", member); // 将已输入的信息回显给用户
+                return "redirect:/member/toAddMember"; // 返回注册页面并显示错误信息
+            }
+        } catch (Exception e) {
+            log.error("System error during registration: ", e);
+            model.addAttribute("error", "系统错误：" + e.getMessage());
+            model.addAttribute("member", member); // 将已输入的信息回显给用户
+            return "redirect:/member/toAddMember"; // 返回注册页面并显示错误信息
+        }
+    }
+
 
 }

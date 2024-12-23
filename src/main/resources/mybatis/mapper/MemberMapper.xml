@@ -55,5 +55,4 @@
         FROM member
         WHERE member_account = #{memberAccount}
     </select>
-
 </mapper>

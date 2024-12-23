@@ -6,6 +6,7 @@ import com.milotnt.service.AdminService;
 import com.milotnt.service.EmployeeService;
 import com.milotnt.service.EquipmentService;
 import com.milotnt.service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author MiloTnT [milotntspace@gmail.com]
  * @date 2021/8/20
  */
-
+@Slf4j
 @Controller
 public class LoginController {
 
@@ -50,6 +51,7 @@ public class LoginController {
     //管理员登录
     @RequestMapping("/adminLogin")
     public String adminLogin(Admin admin, Model model, HttpSession session) {
+        log.info("=============================登录");
         Admin admin1 = adminService.adminLogin(admin);
         if (admin1 != null) {
             //会员人数

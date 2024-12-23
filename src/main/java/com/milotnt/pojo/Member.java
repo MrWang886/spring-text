@@ -1,5 +1,10 @@
 package com.milotnt.pojo;
 
+import com.sun.org.apache.bcel.internal.generic.DADD;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * @author MiloTnT [milotntspace@gmail.com]
  * @date 2021/8/10
@@ -82,11 +87,11 @@ public class Member {
         this.memberPhone = memberPhone;
     }
 
-    public String getCardTime() {
+    public  String getCardTime() {
         return cardTime;
     }
 
-    public void setCardTime(String cardTime) {
+    public void setCardTime(String  cardTime) {
         this.cardTime = cardTime;
     }
 

@@ -33,5 +33,11 @@ public interface MemberMapper {
 
     //根据会员账号查询会员
     List<Member> selectByMemberAccount(Integer memberAccount);
+    @Insert("INSERT INTO member(member_account, member_password, member_name, member_gender, member_age, " +
+            "member_height, member_weight, member_phone, card_time, card_class, card_next_class) " +
+            "VALUES(#{memberAccount}, #{memberPassword}, #{memberName}, #{memberGender}, #{memberAge}, " +
+            "#{memberHeight}, #{memberWeight}, #{memberPhone}, #{cardTime}, #{cardClass}, #{cardNextClass})")
+    @Options(useGeneratedKeys = true, keyProperty = "memberAccount")
+    void insMember(Member member);
 
 }
