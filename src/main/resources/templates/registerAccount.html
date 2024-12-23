@@ -12,36 +12,37 @@
             crossorigin="anonymous"></script>
     <script type="text/javascript">
         function checkRegister(registerForm) {
+            let messages = [];
             if (registerForm.username.value == '') {
-                alert("请输入用户名");
+                messages.push("请输入用户名");
                 registerForm.username.focus();
-                return false;
             }
             if (registerForm.password.value == '') {
-                alert("请输入密码");
+                messages.push("请输入密码");
                 registerForm.password.focus();
-                return false;
             }
             if (registerForm.confirmPassword.value == '') {
-                alert("请确认密码");
+                messages.push("请确认密码");
                 registerForm.confirmPassword.focus();
-                return false;
             }
             if (registerForm.password.value != registerForm.confirmPassword.value) {
-                alert("两次输入的密码不一致");
+                messages.push("两次输入的密码不一致");
                 registerForm.password.focus();
-                return false;
             }
             if (registerForm.email.value == '') {
-                alert("请输入邮箱");
+                messages.push("请输入邮箱");
                 registerForm.email.focus();
+            }
+
+            if (messages.length > 0) {
+                alert(messages.join("\n"));
                 return false;
             }
             return true;
         }
     </script>
 </head>
-<body class="bg-primary" style="background-image: url(/img/background.jpeg);background-size: 100%, 100%">
+<body class="bg-primary" style="background-image: url(/img/background.jpeg); background-size: cover;">
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -53,23 +54,27 @@
                             <div class="card-body">
                                 <form th:action="@{/userRegister}" method="post" name="registerForm" onsubmit="return checkRegister(this)">
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputUsername" name="username" type="text" placeholder="Username"/>
+                                        <input class="form-control" id="inputUsername" name="username" type="text" placeholder="Username" required/>
                                         <label for="inputUsername">用户名</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password"/>
+                                        <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password" required/>
                                         <label for="inputPassword">密码</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputConfirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password"/>
+                                        <input class="form-control" id="inputConfirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required/>
                                         <label for="inputConfirmPassword">确认密码</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputEmail" name="email" type="email" placeholder="Email"/>
+                                        <input class="form-control" id="inputEmail" name="email" type="email" placeholder="Email" required/>
                                         <label for="inputEmail">邮箱</label>
                                     </div>
-                                    <div class="d-grid">
-                                        <input type="submit" class="btn btn-primary" value="注册">
+                                    <div class="d-grid gap-2">
+                                        <!-- 注册按钮 -->
+                                        <button type="submit" class="btn btn-success btn-block">注册</button>
+
+                                        <!-- 返回登录按钮 -->
+                                        <a class="btn btn-primary" th:href="@{/toUserLogin}">转到登录</a>
                                     </div>
                                 </form>
                             </div>
