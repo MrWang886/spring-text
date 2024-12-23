@@ -29,9 +29,12 @@
                 messages.push("两次输入的密码不一致");
                 registerForm.password.focus();
             }
-            if (registerForm.email.value == '') {
-                messages.push("请输入邮箱");
-                registerForm.email.focus();
+            if (registerForm.memberPhone.value == '') {
+                messages.push("请输入电话号码");
+                registerForm.memberPhone.focus();
+            } else if (!/^\d{11}$/.test(registerForm.memberPhone.value)) {
+                messages.push("请输入有效的11位数字电话号码");
+                registerForm.memberPhone.focus();
             }
 
             if (messages.length > 0) {
@@ -66,8 +69,8 @@
                                         <label for="inputConfirmPassword">确认密码</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputEmail" name="email" type="email" placeholder="Email" required/>
-                                        <label for="inputEmail">邮箱</label>
+                                        <input class="form-control" id="inputPhone" name="memberPhone" type="tel" placeholder="Phone" required pattern="[0-9]{11}" title="请输入11位数字的电话号码"/>
+                                        <label for="inputPhone">电话</label>
                                     </div>
                                     <div class="d-grid gap-2">
                                         <!-- 注册按钮 -->
