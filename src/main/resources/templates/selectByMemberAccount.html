@@ -22,23 +22,18 @@
                         会员卡查询
                     </div>
                     <div class="card-body">
-                        <div>
-                            <form th:action="@{/member/selByCard}" method="post">
-                                <div style="width: 310px;margin-bottom: 15px">
-                                    <div align="left" style="float:left">
-                                        <input type="text" class="form-control"
-                                               onkeypress="return event.keyCode>=48&&event.keyCode<=57"
-                                               ng-pattern="/[^a-zA-Z]/"
-                                               name="memberAccount">
-                                        </div>
-                                    <div align="right">
-                                        <input type="submit" class="btn btn-outline-success" value="查询">
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <table class="table table-hover">
+                        <form th:action="@{/member/selByCard}" method="post" onsubmit="return validateForm()" class="d-flex align-items-center">
+                            <div class="me-2 flex-grow-1">
+                                <input type="text" class="form-control" name="memberAccount"
+                                       pattern="^[0-9]*$" title="请输入仅包含数字的会员账号/卡号"
+                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                       required>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-outline-success" value="查询">
+                            </div>
+                        </form>
+                        <table class="table table-hover mt-3">
                             <thead class="bg-light">
                             <tr>
                                 <th scope="col" class="border-0">会员账号/卡号</th>
@@ -54,7 +49,6 @@
                                 <th scope="col" class="border-0">操作</th>
                             </tr>
                             </thead>
-
                             <tbody>
                             <tr th:each="mem:${memberList}">
                                 <td th:text="${mem.memberAccount}">会员账号/卡号</td>
@@ -84,5 +78,16 @@
 </div>
 
 <div th:include="adminCommon::common-scripts"></div>
+
+<script>
+    function validateForm() {
+        var memberAccount = document.querySelector('input[name="memberAccount"]').value;
+        if (!/^\d+$/.test(memberAccount)) {
+            alert("会员账号/卡号只能包含数字！");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
