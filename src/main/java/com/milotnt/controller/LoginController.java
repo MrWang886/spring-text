@@ -87,11 +87,13 @@ public class LoginController {
         if (member1 != null) {
             model.addAttribute("member", member1);
             session.setAttribute("user", member1);
-            return "userMain";
+            // 直接跳转到个人信息页面，而不是 userMain
+            return "userInformation";
         }
         model.addAttribute("msg", "您输入的账号或密码有误，请重新输入！");
         return "userLogin";
     }
+
 
     //跳转管理员主页
     @RequestMapping("/toAdminMain")
