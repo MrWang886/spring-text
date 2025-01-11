@@ -60,6 +60,24 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+/* 讨论区样式 */
+.discussion-content {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.reply-item {
+  padding: 1rem 0;
+}
+
+.reply-header {
+  margin-bottom: 0.5rem;
+}
+
+.reply-content {
+  color: #495057;
+}
+
 
 hr {
   margin: 1rem 0;
@@ -3005,6 +3023,28 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #0d6efd;
   border-color: #0d6efd;
+}
+/* 富文本编辑器样式调整 */
+.w-e-toolbar {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.w-e-text-container {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+/* 讨论区样式 */
+.discussion-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;  /* 保留换行和空格 */
+  word-wrap: break-word;  /* 长单词自动换行 */
+}
+
+.reply-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .btn-secondary {
