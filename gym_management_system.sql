@@ -164,5 +164,59 @@ INSERT INTO `equipment` VALUES (6, '杠铃1', '1号房间', '正常', '');
 INSERT INTO `equipment` VALUES (7, '杠铃2', '1号房间', '正常', '');
 
 
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `comment_id` int NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `member_account` int NOT NULL COMMENT '会员账号',
+  `class_id` int NOT NULL COMMENT '课程ID',
+  `content` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '评论内容',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `is_approved` tinyint(1) NULL DEFAULT 0 COMMENT '审核状态',
+  PRIMARY KEY (`comment_id`) USING BTREE,
+  INDEX `fk_member_comment`(`member_account` ASC) USING BTREE,
+  INDEX `fk_class_comment`(`class_id` ASC) USING BTREE,
+  CONSTRAINT `fk_class_comment` FOREIGN KEY (`class_id`) REFERENCES `class_table` (`class_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_member_comment` FOREIGN KEY (`member_account`) REFERENCES `member` (`member_account`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+-- ----------------------------
+-- Table structure for discussion
+-- ----------------------------
+DROP TABLE IF EXISTS `discussion`;
+CREATE TABLE `discussion`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `member_id` int NOT NULL COMMENT '发帖人ID',
+  `member_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '发帖人姓名',
+  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '帖子标题',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '帖子内容',
+  `create_time` datetime NOT NULL COMMENT '发帖时间',
+  `reply_count` int NULL DEFAULT 0 COMMENT '回复数量',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '会员讨论区帖子表' ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for reply
+-- ----------------------------
+DROP TABLE IF EXISTS `reply`;
+CREATE TABLE `reply`  (
+ `id` int NOT NULL AUTO_INCREMENT,
+ `discussion_id` int NOT NULL COMMENT '关联的帖子ID',
+ `member_id` int NOT NULL COMMENT '回复人ID',
+ `member_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '回复人姓名',
+ `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '回复内容',
+ `create_time` datetime NOT NULL COMMENT '回复时间',
+ PRIMARY KEY (`id`) USING BTREE,
+ INDEX `discussion_id`(`discussion_id` ASC) USING BTREE,
+ CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`discussion_id`) REFERENCES `discussion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '讨论回复表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

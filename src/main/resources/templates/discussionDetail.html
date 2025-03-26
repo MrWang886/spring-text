@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="userCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="userCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="userCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">帖子详情</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/discussion/list}">讨论区</a></li>
+                    <li class="breadcrumb-item active">帖子详情</li>
+                </ol>
+
+                <!-- 帖子内容 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0" th:text="${discussion.title}">帖子标题</h5>
+                        <small class="text-muted">
+                            作者：<span th:text="${discussion.memberName}"></span> &nbsp;|&nbsp;
+                            发布时间：<span th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <div class="discussion-content" th:text="${discussion.content}">
+                            帖子内容
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 回复列表 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-comments me-1"></i>
+                        回复列表
+                    </div>
+                    <div class="card-body">
+                        <!-- 显示回复列表 -->
+                        <div th:each="reply : ${replies}" class="border-bottom mb-3 pb-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong th:text="${reply.memberName}">用户名</strong>
+                                    <small class="text-muted" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">回复时间</small>
+                                </div>
+                            </div>
+                            <div class="mt-2" th:text="${reply.content}">回复内容</div>
+                        </div>
+
+                        <!-- 发表回复 -->
+                        <form th:action="@{/discussion/reply}" method="post" class="mt-4">
+                            <input type="hidden" name="discussionId" th:value="${discussion.id}">
+                            <div class="mb-3">
+                                <label for="replyContent" class="form-label">发表回复</label>
+                                <textarea class="form-control" id="replyContent" name="content"
+                                          rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-reply"></i> 发表回复
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="userCommon::common-footer"></footer>
+    </div>
+</div>
+
+<div th:include="userCommon::common-scripts"></div>
+</body>
+</html>

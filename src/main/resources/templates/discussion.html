@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="userCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="userCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="userCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">会员讨论区</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toUserMain}">主页</a></li>
+                    <li class="breadcrumb-item active">讨论区</li>
+                </ol>
+
+                <!-- 发帖按钮 -->
+                <div class="mb-4">
+                    <a th:href="@{/discussion/toCreate}" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> 发布新帖子
+                    </a>
+                </div>
+
+                <!-- 帖子列表 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        讨论列表
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>作者</th>
+                                <th>回复数</th>
+                                <th>发布时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="discussion : ${discussions}">
+                                <td>
+                                    <a th:href="@{/discussion/detail/{id}(id=${discussion.id})}"
+                                       th:text="${discussion.title}"></a>
+                                </td>
+                                <td th:text="${discussion.memberName}"></td>
+                                <td th:text="${discussion.replyCount}"></td>
+                                <td th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="userCommon::common-footer"></footer>
+    </div>
+</div>
+
+<div th:include="userCommon::common-scripts"></div>
+</body>
+</html>

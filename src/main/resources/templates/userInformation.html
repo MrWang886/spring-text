@@ -9,7 +9,24 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
+                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                    <strong>欢迎回来，</strong><span th:text="${member.memberName}"></span>！
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <h1 class="mt-4">个人信息</h1>
+                <!-- 在个人信息卡片后添加讨论区卡片 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-comments me-1"></i>
+                        会员讨论区
+                    </div>
+                    <div class="card-body">
+                        <p>参与会员讨论，分享健身经验和心得。</p>
+                        <a th:href="@{/discussion/list}" class="btn btn-primary">
+                            <i class="fas fa-comments me-1"></i> 进入讨论区
+                        </a>
+                    </div>
+                </div>
 
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a th:href="@{/toUserMain}">主页</a></li>
