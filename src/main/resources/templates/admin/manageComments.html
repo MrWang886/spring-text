@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="adminCommon::common-header"></head>
+<body class="sb-nav-fixed">
+<nav th:replace="adminCommon::common-navbar"></nav>
+<div id="layoutSidenav">
+    <div th:replace="adminCommon::common-sidenav"></div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">管理评论区</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">管理评论区</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        帖子列表
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>作者</th>
+                                <th>回复数</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="discussion : ${discussions}">
+                                <td>
+                                    <a th:href="@{/discussion/detail/{id}(id=${discussion.id})}"
+                                       th:text="${discussion.title}"></a>
+                                </td>
+                                <td th:text="${discussion.memberName}"></td>
+                                <td th:text="${discussion.replyCount}"></td>
+                                <td th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                <td>
+                                    <a th:href="@{/admin/manage-comments/view-post/{id}(id=${discussion.id})}"
+                                       class="btn btn-sm btn-info"
+                                       onclick="return confirm('确定要查看这个帖子吗？')">
+                                        <i class="fas fa-eye"></i> 查看帖子
+                                    </a>
+                                    <a th:href="@{/admin/manage-comments/delete-post/{id}(id=${discussion.id})}"
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('确定要删除这个帖子吗？所有相关回复也会被删除。')">
+                                        <i class="fas fa-trash"></i> 删除帖子
+                                    </a>
+                                    <a th:href="@{/admin/manage-comments/delete-replies/{id}(id=${discussion.id})}"
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('确定要删除所有回复吗？')">
+                                        <i class="fas fa-trash-alt"></i> 删除回复
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="adminCommon::common-footer"></footer>
+    </div>
+</div>
+</body>
+</html>

@@ -5,6 +5,8 @@ import com.milotnt.pojo.Discussion;
 import com.milotnt.pojo.Member;
 import com.milotnt.pojo.Reply;
 import com.milotnt.service.DiscussionService;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/discussion")
 public class DiscussionController {
@@ -61,12 +63,14 @@ public class DiscussionController {
     // 发表回复
     @PostMapping("/reply")
     public String reply(Reply reply, HttpSession session) {
+        log.info("发表回复: " + reply);
         Member member = (Member) session.getAttribute("user");
         // 根据 Member 类的实际属性名修改
         reply.setMemberId(member.getMemberAccount());  // 如果是使用会员账号作为ID
         reply.setMemberName(member.getMemberName());
         reply.setCreateTime(new Date());
         discussionService.addReply(reply);
+        log.info("发表成功 " + reply);
         return "redirect:/discussion/detail/" + reply.getDiscussionId();
     }
 
