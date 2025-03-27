@@ -38,11 +38,6 @@
                                 <td th:text="${discussion.replyCount}"></td>
                                 <td th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></td>
                                 <td>
-                                    <a th:href="@{/admin/manage-comments/view-post/{id}(id=${discussion.id})}"
-                                       class="btn btn-sm btn-info"
-                                       onclick="return confirm('确定要查看这个帖子吗？')">
-                                        <i class="fas fa-eye"></i> 查看帖子
-                                    </a>
                                     <a th:href="@{/admin/manage-comments/delete-post/{id}(id=${discussion.id})}"
                                        class="btn btn-sm btn-danger"
                                        onclick="return confirm('确定要删除这个帖子吗？所有相关回复也会被删除。')">
