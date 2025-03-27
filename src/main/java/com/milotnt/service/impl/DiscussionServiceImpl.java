@@ -62,6 +62,11 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
+    public Reply findReplyById(Integer replyId) {
+        return discussionMapper.findReplyById(replyId);
+    }
+
+    @Override
     @Transactional
     public void deleteReply(Integer replyId) {
         // 获取回复信息
@@ -82,5 +87,11 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Override
     public List<Reply> findRepliesByMemberId(Integer memberId) {
         return discussionMapper.findRepliesByMemberId(memberId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteRepliesByDiscussionId(Integer discussionId) {
+        discussionMapper.deleteRepliesByDiscussionId(discussionId);
     }
 }

@@ -1,10 +1,12 @@
 package com.milotnt.service.impl;
 
+import com.milotnt.mapper.DiscussionMapper;
 import com.milotnt.mapper.EquipmentMapper;
 import com.milotnt.pojo.Equipment;
 import com.milotnt.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Autowired
     private EquipmentMapper equipmentMapper;
+    @Autowired
+    private DiscussionMapper discussionMapper;
 
     @Override
     public List<Equipment> findAll() {
@@ -43,7 +47,12 @@ public class EquipmentServiceImpl implements EquipmentService {
     public List<Equipment> selectByEquipmentId(Integer equipmentId) {
         return equipmentMapper.selectByEquipmentId(equipmentId);
     }
+    // 删除指定帖子的所有回复
 
+    @Transactional
+    public void deleteRepliesByDiscussionId(Integer discussionId) {
+        discussionMapper.deleteRepliesByDiscussionId(discussionId);
+    }
     @Override
     public Integer selectTotalCount() {
         return equipmentMapper.selectTotalCount();

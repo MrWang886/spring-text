@@ -1,5 +1,6 @@
 package com.milotnt.controller;
 
+import com.milotnt.pojo.Admin;
 import com.milotnt.pojo.Discussion;
 import com.milotnt.pojo.Member;
 import com.milotnt.pojo.Reply;
@@ -69,24 +70,53 @@ public class DiscussionController {
         return "redirect:/discussion/detail/" + reply.getDiscussionId();
     }
 
-    // ... 其他代码保持不变 ...
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, HttpSession session) {
         // 获取当前登录用户
-        Member member = (Member) session.getAttribute("user");
-        // 获取帖子信息
-        Discussion discussion = discussionService.findById(id);
-
-        // 验证权限：只有帖子作者才能删除
-        if (discussion != null && discussion.getMemberId().equals(member.getMemberAccount())) {
+        Object user = session.getAttribute("user");
+        if (user instanceof Admin) {
             discussionService.delete(id);
             return "redirect:/discussion/list";
+        } else if (user instanceof Member) {
+            Member member = (Member) user;
+            Discussion discussion = discussionService.findById(id);
+            // 验证权限：只有帖子作者才能删除
+            if (discussion != null && discussion.getMemberId().equals(member.getMemberAccount())) {
+                discussionService.delete(id);
+                return "redirect:/discussion/list";
+            } else {
+                // 可以添加一个错误消息
+                return "redirect:/discussion/list?error=unauthorized";
+            }
         } else {
-            // 可以添加一个错误消息
-            return "redirect:/discussion/list?error=unauthorized";
+            return "redirect:/adminLogin";
         }
     }
 
-// ... 其他代码保持不变 ...
+    @GetMapping("/delete-reply/{replyId}")
+    public String deleteReply(@PathVariable Integer replyId, HttpSession session) {
+        // 获取当前登录用户
+        Object user = session.getAttribute("user");
+        if (user instanceof Admin) {
+            discussionService.deleteReply(replyId);
+            return "redirect:/discussion/list";
+        } else if (user instanceof Member) {
+            // 获取回复信息
+            Reply reply = discussionService.findReplyById(replyId);
+            if (reply != null) {
+                Member member = (Member) user;
+                // 验证权限：只有回复作者才能删除
+                if (reply.getMemberId().equals(member.getMemberAccount())) {
+                    discussionService.deleteReply(replyId);
+                    return "redirect:/discussion/detail/{id}";
+                } else {
+                    // 可以添加一个错误消息
+                    return "redirect:/discussion/detail/{id}?error=unauthorized";
+                }
+            }
+        } else {
+            return "redirect:/adminLogin";
+        }
+        return "redirect:/discussion/detail/{id}";
+    }
 }

@@ -24,11 +24,17 @@ public interface DiscussionService {
     // 查询指定帖子的所有回复
     List<Reply> findRepliesByDiscussionId(Integer discussionId);
 
+    // 根据回复ID查询回复
+    Reply findReplyById(Integer replyId);
+
     // 添加回复
     void addReply(Reply reply);
 
     // 删除回复
     void deleteReply(Integer replyId);
+
+    // 删除指定帖子的所有回复
+    void deleteRepliesByDiscussionId(Integer discussionId);
 
     // 查询用户的所有帖子
     List<Discussion> findByMemberId(Integer memberId);
