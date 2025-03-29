@@ -5,9 +5,9 @@
 
 <mapper namespace="com.milotnt.mapper.CoachMapper">
     <!-- 通过教练账号和密码验证身份 -->
-    <select id="selectByAccountAndPassword" resultType="com.milotnt.pojo.ClassOrder">
+    <select id="selectByAccountAndPassword" resultType="com.milotnt.pojo.ClassTable">
         SELECT *
-        FROM class_order
+        FROM class_table
         WHERE coach_account = #{coachAccount}
           AND coach_password = #{coachPassword}
     </select>

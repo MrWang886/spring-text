@@ -16,8 +16,7 @@ public class ClassOrder {
     private String memberName;
     private Integer memberAccount;
     private String classBegin;
-    private String coachAccount;
-    private String coachPassword;
+
 
     public ClassOrder() {
     }

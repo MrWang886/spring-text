@@ -2,6 +2,7 @@ package com.milotnt.controller;
 
 import com.milotnt.pojo.Admin;
 import com.milotnt.pojo.ClassOrder;
+import com.milotnt.pojo.ClassTable;
 import com.milotnt.pojo.Member;
 import com.milotnt.service.AdminService;
 import com.milotnt.service.EmployeeService;
@@ -100,8 +101,8 @@ public class LoginController {
 
     //教练登录
     @RequestMapping("/coachLogin")
-    public String coachLogin(ClassOrder classOrder, Model model, HttpSession session) {
-        ClassOrder coach1 = coachService.coachLogin(classOrder);
+    public String coachLogin(ClassTable classTable, Model model, HttpSession session) {
+        ClassTable coach1 = coachService.coachLogin(classTable);
         if (coach1 != null) {
             session.setAttribute("coach", coach1);
             return "coachMain";

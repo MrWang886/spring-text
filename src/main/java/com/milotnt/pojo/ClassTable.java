@@ -1,9 +1,13 @@
 package com.milotnt.pojo;
 
+import lombok.Data;
+
 /**
  * @author MiloTnT [milotntspace@gmail.com]
  * @date 2021/8/10
  */
+
+@Data
 public class ClassTable {
 
     private Integer classId;
@@ -11,7 +15,8 @@ public class ClassTable {
     private String classBegin;
     private String classTime;
     private String coach;
-
+    private String coachAccount;
+    private String coachPassword;
     public Integer getClassId() {
         return classId;
     }
