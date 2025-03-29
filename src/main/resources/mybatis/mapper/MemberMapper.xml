@@ -50,10 +50,10 @@
         FROM member
     </select>
 
-    <select id="selectByMemberAccount" parameterType="java.lang.Integer" resultType="member">
-        SELECT *
-        FROM member
-        WHERE member_account = #{memberAccount}
+    <select id="selectByMemberAccount" parameterType="String" resultType="member">
+        SELECT * 
+        FROM member 
+        WHERE CAST(member_account AS CHAR) LIKE #{memberAccount}
     </select>
 
     <!-- 插入打卡记录 -->

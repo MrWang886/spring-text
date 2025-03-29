@@ -32,7 +32,7 @@ public interface MemberService {
     Integer selectTotalCount();
 
     //根据会员账号查询会员
-    List<Member> selectByMemberAccount(Integer memberAccount);
+    List<Member> selectByMemberAccount(String memberAccount);
     boolean registerMember(Member member);
 
     // 打卡功能

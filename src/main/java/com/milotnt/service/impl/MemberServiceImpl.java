@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> selectByMemberAccount(Integer memberAccount) {
+    public List<Member> selectByMemberAccount(String memberAccount) {
         return memberMapper.selectByMemberAccount(memberAccount);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -85,7 +86,7 @@ public class MemberController {
     //跳转会员修改页面
     @RequestMapping("/toUpdateMember")
     public String toUpdateMember(Integer memberAccount, Model model) {
-        List<Member> memberList = memberService.selectByMemberAccount(memberAccount);
+        List<Member> memberList = memberService.selectByMemberAccount(String.valueOf(memberAccount));
         model.addAttribute("memberList", memberList);
         return "updateMember";
     }
@@ -106,14 +107,10 @@ public class MemberController {
 
     //根据会员卡号查询
     @RequestMapping("/selByCard")
-    public String selectByCardId(Model model, Integer memberAccount) {
-        List<Member> memberList = memberService.selectByMemberAccount(memberAccount);
-        if (memberList != null) {
-            model.addAttribute("memberList", memberList);
-        } else {
-            String message = "会员卡号不存在！";
-            model.addAttribute("noMessage", message);
-        }
+    public String selectByCardId(Model model, @RequestParam("memberAccount") String memberAccount) {
+        String searchAccount = "%" + memberAccount + "%";
+        List<Member> memberList = memberService.selectByMemberAccount(searchAccount);
+        model.addAttribute("memberList", memberList);
         return "selectByMemberAccount";
     }
     @PostMapping("/userRegister")

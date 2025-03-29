@@ -34,7 +34,7 @@ public interface MemberMapper {
     Integer selectTotalCount();
 
     //根据会员账号查询会员
-    List<Member> selectByMemberAccount(Integer memberAccount);
+    List<Member> selectByMemberAccount(String memberAccount);
 
     // 插入打卡记录
     Boolean insertCheckin(@Param("memberAccount") Integer memberAccount, @Param("checkinDate") Date checkinDate);
