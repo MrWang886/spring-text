@@ -55,9 +55,9 @@ public class LoginController {
     //管理员登录
     @RequestMapping("/adminLogin")
     public String adminLogin(Admin admin, Model model, HttpSession session) {
-        log.info("=============================登录");
         Admin admin1 = adminService.adminLogin(admin);
         if (admin1 != null) {
+            session.setAttribute("admin", admin1);
             //会员人数
             Integer memberTotal = memberService.selectTotalCount();
             model.addAttribute("memberTotal", memberTotal);

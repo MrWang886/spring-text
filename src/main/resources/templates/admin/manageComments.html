@@ -23,41 +23,41 @@
                             <tr>
                                 <th>标题</th>
                                 <th>作者</th>
-
                                 <th>发布时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="discussion : ${discussions}">
-
                                 <td th:text="${discussion.title}"></td>
                                 <td th:text="${discussion.memberName}"></td>
                                 <td th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></td>
                                 <td>
 
-                                    <div class="button-group">
+                                    <div class="d-flex gap-2">
+                                        <!-- 查看详情按钮 -->
                                         <a th:href="@{/admin/manage-comments/view-post/{id}(id=${discussion.id})}"
-                                           class="custom-btn custom-view-btn">
+                                           class="btn btn-sm btn-outline-primary d-flex align-items-center">
+                                            <i class="fas fa-eye me-1"></i>
                                             <span>查看详情</span>
-                                            <i class="fas fa-arrow-right btn-icon"></i>
                                         </a>
 
+                                        <!-- 删除帖子按钮 -->
                                         <a th:href="@{/admin/manage-comments/delete-post/{id}(id=${discussion.id})}"
-                                           class="custom-btn custom-delete-btn"
+                                           class="btn btn-sm btn-outline-danger d-flex align-items-center"
                                            onclick="return confirm('确定要删除这个帖子吗？所有相关回复也会被删除。')">
-                                            <i class="fas fa-trash btn-icon"></i>
+                                            <i class="fas fa-trash me-1"></i>
                                             <span>删除帖子</span>
                                         </a>
 
+                                        <!-- 清空回复按钮 -->
                                         <a th:href="@{/admin/manage-comments/delete-replies/{id}(id=${discussion.id})}"
-                                           class="custom-btn custom-clear-btn"
+                                           class="btn btn-sm btn-outline-warning d-flex align-items-center"
                                            onclick="return confirm('确定要删除所有回复吗？')">
-                                            <i class="fas fa-comments btn-icon"></i>
+                                            <i class="fas fa-comment-slash me-1"></i>
                                             <span>清空回复</span>
                                         </a>
                                     </div>
-
                                 </td>
                             </tr>
                             </tbody>

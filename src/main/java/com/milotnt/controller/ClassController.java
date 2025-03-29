@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -58,26 +59,22 @@ public class ClassController {
 
     // 查询课程报名信息
     @RequestMapping("/selClassOrder")
-    public String selectClassOrder(HttpSession session, Model model) {
-        // 获取当前登录教练的账号
-        ClassTable coach = (ClassTable) session.getAttribute("coach");
-        if (coach == null) {
-            return "redirect:/toAoachLogin"; // 如果未登录，重定向到登录页面
+    public String selectClassOrder(@RequestParam("classId") Integer classId,
+                             HttpSession session,
+                             Model model) {
+        // 权限判断保持不变
+        if (session.getAttribute("admin") == null && session.getAttribute("coach") == null) {
+            return "redirect:/adminLogin";
         }
-        Integer coachAccount = Integer.valueOf(coach.getCoachAccount());
 
-        // 根据教练账号查询其负责的课程
-        List<ClassTable> classList = classTableService.findByCoachAccount(coachAccount);
-
-        // 根据课程查询报名信息
-        List<ClassOrder> classOrderList = new ArrayList<>();
-        for (ClassTable classTable : classList) {
-            classOrderList.addAll(classOrderService.selectMemberOrderList(classTable.getClassId()));
-        }
+        // 根据 classId 查询具体课程的报名信息
+        List<ClassOrder> classOrderList = classOrderService.selectMemberOrderList(classId);
+        ClassTable classTable = classTableService.selectByClassId(classId);
 
         model.addAttribute("classOrderList", classOrderList);
-        model.addAttribute("classList", classList); // 添加教练负责的课程列表到模型
-        return "coachMain"; // 返回教练主页
+        model.addAttribute("class", classTable); // 传递课程详情对象
+
+        return "selectClassOrder"; 
     }
 
     // 跳转教练个人信息页面
