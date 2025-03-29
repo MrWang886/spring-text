@@ -7,60 +7,208 @@
     <title>健身房管理系统-教练登录</title>
     <link href="/static/css/styles.css" th:href="@{css/styles.css}" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        function checkSubmit(loginForm) {
-            if (loginForm.coachAccount.value == '') {
-                alert("请输入账号");
-                loginForm.coachAccount.focus();
-                return false;
-            }
-            if (loginForm.coachPassword.value == '') {
-                alert("请输入密码");
-                loginForm.coachPassword.focus();
-                return false;
-            }
-            return true;
+    <style>
+        /* 保持与管理员登录相同的样式 */
+        .auth-container {
+            background: linear-gradient(135deg, rgba(16, 36, 94, 0.9), rgba(3, 12, 34, 0.9)),
+            url(/img/background.jpeg) center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
-    </script>
+
+        .auth-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+        }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+
+        .form-floating label {
+            padding: 0.8rem 1.2rem;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .gradient-btn {
+            background: linear-gradient(135deg, #4a90e2, #3065c1);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+            );
+            transition: 0.5s;
+        }
+
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .gradient-btn:hover::before {
+            left: 100%;
+        }
+
+        .switch-link {
+            color: #4a90e2;
+            position: relative;
+            text-decoration: none;
+            padding-bottom: 2px;
+        }
+
+        .switch-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a90e2;
+            transition: width 0.3s ease;
+        }
+
+        .switch-link:hover::after {
+            width: 100%;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            z-index: 5;
+        }
+    </style>
 </head>
-<body class="bg-primary" th:style="'background-image: url(/img/background.jpeg);background-size: 100%, 100%'">
+<body>
 <div id="layoutAuthentication">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">教练登录</h3></div>
-                            <div class="card-body">
-                                <form th:action="@{/coachLogin}" method="post" name="loginForm" onsubmit="return checkSubmit(this)">
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputAccount" name="coachAccount" type="text" placeholder="Account"/>
-                                        <label for="inputAccount">账号</label>
+    <div class="auth-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="auth-card">
+                        <div class="card-header bg-transparent text-center py-4">
+                            <h2 class="fw-bold mb-0 text-primary">🏋️ 教练用户登录</h2>
+                            <p class="text-muted mt-2">请使用教练账号登录</p>
+                        </div>
+                        <div class="card-body px-5 py-4">
+                            <form th:action="@{/coachLogin}" method="post" name="loginForm" onsubmit="return checkSubmit(this)">
+                                <!-- 账号输入 -->
+                                <div class="form-floating mb-4 position-relative">
+                                    <input class="form-control" id="inputAccount" name="coachAccount" type="text"
+                                           placeholder="Account"/>
+                                    <label for="inputAccount">教练账号</label>
+                                    <i class="fas fa-id-card input-icon"></i>
+                                </div>
+
+                                <!-- 密码输入 -->
+                                <div class="form-floating mb-4 position-relative">
+                                    <input class="form-control" id="inputPassword" name="coachPassword" type="password"
+                                           placeholder="Password"/>
+                                    <label for="inputPassword">登录密码</label>
+                                    <i class="fas fa-lock input-icon"></i>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="inputRememberPassword"/>
+                                        <label class="form-check-label text-muted small" for="inputRememberPassword">
+                                            保持登录状态
+                                        </label>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputPassword" name="coachPassword" type="password" placeholder="Password"/>
-                                        <label for="inputPassword">密码</label>
+                                </div>
+
+                                <div class="d-grid gap-3">
+                                    <button type="submit" class="gradient-btn py-2">
+                                        <i class="fas fa-sign-in-alt me-2"></i>立即登录
+                                    </button>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <a class="switch-link small" th:href="@{/toUserLogin}">
+                                            <i class="fas fa-users me-1"></i>会员入口
+                                        </a>
+                                        <span class="text-muted">|</span>
+                                        <a class="switch-link small" th:href="@{/}">
+                                            <i class="fas fa-user-shield me-1"></i>管理后台
+                                        </a>
                                     </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" id="inputRememberPassword" type="checkbox"
-                                               value=""/>
-                                        <label class="form-check-label" for="inputRememberPassword">记住密码</label>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <input type="submit" class="btn btn-success" value="登录">
-                                        <a class="btn btn-primary" th:href="@{/toUserLogin}">转到会员登录</a>
-                                        <a class="btn btn-primary" th:href="@{/}">转到管理员登录</a>
-                                    </div>
-                                </form>
-                                <div th:text="${msg}" style="margin-top: 20px;text-align: center;color: red"></div>
-                            </div>
+                                </div>
+                            </form>
+                            <div th:if="${msg}" class="alert alert-danger mt-4 animate__animated animate__shakeX"
+                                 role="alert" th:text="${msg}"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    // 增强表单验证（与管理员登录保持一致）
+    function checkSubmit(loginForm) {
+        const showError = (field, message) => {
+            const formGroup = field.closest('.form-floating');
+            formGroup.classList.add('is-invalid');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback';
+            errorDiv.textContent = message;
+            formGroup.appendChild(errorDiv);
+        }
+
+        // 清除旧错误提示
+        document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+
+        // 验证逻辑
+        if (!loginForm.coachAccount.value.trim()) {
+            showError(loginForm.coachAccount, '请输入教练账号');
+            return false;
+        }
+        if (!loginForm.coachPassword.value.trim()) {
+            showError(loginForm.coachPassword, '请输入登录密码');
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
