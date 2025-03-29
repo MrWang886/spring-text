@@ -87,4 +87,13 @@
         WHERE member_account = #{memberAccount}
     </select>
 
+    <!-- 在MemberMapper.xml中添加查询最后一次打卡时间的SQL -->
+    <select id="selectLastCheckinTimeByMemberAccount" resultType="java.util.Date">
+        SELECT checkin_date 
+        FROM member_checkin 
+        WHERE member_account = #{memberAccount}
+        ORDER BY checkin_date DESC 
+        LIMIT 1
+    </select>
+
 </mapper>

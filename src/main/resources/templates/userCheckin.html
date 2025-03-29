@@ -141,18 +141,13 @@
                                 loop autoplay>
                         </lottie-player>
 
-                        <button class="btn pulse-button rounded-pill"
-                                th:href="@{/user/checkin}"
-                                onclick="playAnimation()">
-                            <i class="fas fa-check-circle me-2"></i>
-                            立即打卡
-                        </button>
+
 
                         <div class="mt-4">
                             <div class="progress" style="height: 8px;">
                                 <div class="progress-bar bg-success"
                                      role="progressbar"
-                                     style="width: 75%"
+                                     style="width: 0%"
                                      aria-valuenow="75"
                                      aria-valuemin="0"
                                      aria-valuemax="100">
@@ -179,12 +174,12 @@
 
 <script>
     function playAnimation() {
-        const animation = document.querySelector('.checkin-animation');
-        animation.style.display = 'block';
-        setTimeout(() => {
-            animation.style.display = 'none';
-        }, 2000);
-    }
+    const animation = document.querySelector('.checkin-animation');
+    animation.style.display = 'block';
+    setTimeout(() => {
+        animation.style.display = 'none';
+    }, 2000);
+}
 </script>
 </body>
 </html>

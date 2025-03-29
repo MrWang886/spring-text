@@ -69,8 +69,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Boolean checkin(Integer memberAccount) {
-        Date today = new Date();
-        return memberMapper.insertCheckin(memberAccount, today);
+        // 获取最后一次打卡时间
+        Date lastCheckinTime = memberMapper.selectLastCheckinTimeByMemberAccount(memberAccount);
+        
+        // 如果没有记录或间隔超过24小时则允许打卡
+        if (lastCheckinTime == null || 
+            new Date().getTime() - lastCheckinTime.getTime() >= 24 * 60 * 60 * 1000) {
+            // 使用当前日期插入（注意：需要确保checkin_date存储的是日期而非具体时间）
+            return memberMapper.insertCheckin(memberAccount, new Date());
+        }
+        return false;
     }
 
     @Override

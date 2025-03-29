@@ -52,4 +52,7 @@ public interface MemberMapper {
     @Options(useGeneratedKeys = true, keyProperty = "memberAccount")
     void insMember(Member member);
 
+    // 修改MemberMapper接口，新增获取最后一次打卡时间的方法
+    public Date selectLastCheckinTimeByMemberAccount(@Param("memberAccount") Integer memberAccount);
+
 }
