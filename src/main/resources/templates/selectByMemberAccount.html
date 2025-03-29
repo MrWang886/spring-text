@@ -24,10 +24,12 @@
                     <div class="card-body">
                         <form th:action="@{/member/selByCard}" method="post" onsubmit="return validateForm()" class="d-flex align-items-center">
                             <div class="me-2 flex-grow-1">
-                                <input type="text" class="form-control" name="memberAccount"
-                                       pattern="^[0-9]*$" title="请输入仅包含数字的会员账号/卡号"
-                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                       required>
+                                <input class="form-control" 
+                                       id="memberAccount" 
+                                       name="memberAccount" 
+                                       type="text" 
+                                       placeholder="请输入会员账号" 
+                                       th:value="${memberAccount}"/>
                             </div>
                             <div>
                                 <input type="submit" class="btn btn-outline-success" value="查询">

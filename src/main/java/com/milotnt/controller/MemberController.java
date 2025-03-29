@@ -107,10 +107,17 @@ public class MemberController {
 
     //根据会员卡号查询
     @RequestMapping("/selByCard")
-    public String selectByCardId(Model model, @RequestParam("memberAccount") String memberAccount) {
-        String searchAccount = "%" + memberAccount + "%";
-        List<Member> memberList = memberService.selectByMemberAccount(searchAccount);
-        model.addAttribute("memberList", memberList);
+    public String selectByCardId(
+        Model model, 
+        @RequestParam(required = false) String memberAccount) { // 允许参数为空
+        // 保留输入值
+        model.addAttribute("memberAccount", memberAccount);
+        
+        if (memberAccount != null && !memberAccount.isEmpty()) {
+            String searchAccount = "%" + memberAccount + "%";
+            List<Member> memberList = memberService.selectByMemberAccount(searchAccount);
+            model.addAttribute("memberList", memberList);
+        }
         return "selectByMemberAccount";
     }
     @PostMapping("/userRegister")

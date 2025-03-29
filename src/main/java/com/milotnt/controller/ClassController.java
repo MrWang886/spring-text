@@ -93,11 +93,17 @@ public class ClassController {
         return "coachInformation";
     }
 
-    // 更新教练个人信息
+    // 教练信息更新后保留数据（如果存在类似表单提交场景）
     @RequestMapping("/updateCoachInfo")
-    public String updateCoachInfo(HttpSession session, ClassTable classTable) {
+    public String updateCoachInfo(HttpSession session, 
+                             ClassTable classTable, 
+                             Model model) {
         coachService.updateCoachInfo(classTable);
         session.setAttribute("coach", classTable);
+        
+        // 保留表单数据
+        model.addAttribute("coachInfo", classTable);
+        
         return "redirect:toCoachInfo";
     }
 }
