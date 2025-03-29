@@ -4,6 +4,7 @@ import com.milotnt.pojo.ClassOrder;
 import com.milotnt.pojo.ClassTable;
 import com.milotnt.service.ClassOrderService;
 import com.milotnt.service.ClassTableService;
+import com.milotnt.service.CoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class ClassController {
 
     @Autowired
     private ClassOrderService classOrderService;
+
+    @Autowired
+    private CoachService coachService;
 
     // 查询课程
     @RequestMapping("/selClass")
@@ -73,5 +77,26 @@ public class ClassController {
 
         model.addAttribute("classOrderList", classOrderList);
         return "coachMain"; // 返回教练主页
+    }
+
+    // 跳转教练个人信息页面
+    @RequestMapping("/toCoachInfo")
+    public String toCoachInfo(HttpSession session, Model model) {
+        ClassTable coach = (ClassTable) session.getAttribute("coach");
+        if (coach == null) {
+            return "redirect:/toAoachLogin"; // 如果未登录，重定向到登录页面
+        }
+        Integer coachAccount = Integer.valueOf(coach.getCoachAccount());
+        ClassTable coachInfo = coachService.selectByAccount(coachAccount);
+        model.addAttribute("coachInfo", coachInfo);
+        return "coachInformation";
+    }
+
+    // 更新教练个人信息
+    @RequestMapping("/updateCoachInfo")
+    public String updateCoachInfo(HttpSession session, ClassTable classTable) {
+        coachService.updateCoachInfo(classTable);
+        session.setAttribute("coach", classTable);
+        return "redirect:toCoachInfo";
     }
 }

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.milotnt.mapper.CoachMapper">
     <!-- 通过教练账号和密码验证身份 -->
     <select id="selectByAccountAndPassword" resultType="com.milotnt.pojo.ClassTable">
@@ -11,4 +10,20 @@
         WHERE coach_account = #{coachAccount}
           AND coach_password = #{coachPassword}
     </select>
+    <!-- 查询教练信息 -->
+    <select id="selectByAccount" resultType="com.milotnt.pojo.ClassTable">
+        SELECT *
+        FROM class_table
+        WHERE coach_account = #{coachAccount}
+    </select>
+    <!-- 更新教练信息 -->
+    <update id="updateCoachInfo" parameterType="com.milotnt.pojo.ClassTable">
+        UPDATE class_table
+        SET class_name = #{className},
+            class_begin = #{classBegin},
+            class_time = #{classTime},
+            coach = #{coach},
+            coach_password = #{coachPassword}
+        WHERE coach_account = #{coachAccount}
+    </update>
 </mapper>

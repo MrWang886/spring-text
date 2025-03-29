@@ -16,4 +16,14 @@ public class CoachServiceImpl implements CoachService {
     public ClassTable coachLogin(ClassTable classTable) {
         return coachMapper.selectByAccountAndPassword(Integer.valueOf(classTable.getCoachAccount()), classTable.getCoachPassword());
     }
+
+    @Override
+    public ClassTable selectByAccount(Integer coachAccount) {
+        return coachMapper.selectByAccount(coachAccount);
+    }
+
+    @Override
+    public Boolean updateCoachInfo(ClassTable classTable) {
+        return coachMapper.updateCoachInfo(classTable);
+    }
 }
