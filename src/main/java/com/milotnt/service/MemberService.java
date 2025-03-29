@@ -3,6 +3,7 @@ package com.milotnt.service;
 import com.milotnt.pojo.Member;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author MiloTnT [milotntspace@gmail.com]
@@ -33,4 +34,13 @@ public interface MemberService {
     //根据会员账号查询会员
     List<Member> selectByMemberAccount(Integer memberAccount);
     boolean registerMember(Member member);
+
+    // 打卡功能
+    Boolean checkin(Integer memberAccount);
+
+    // 获取会员的打卡天数
+    Integer getCheckinCount(Integer memberAccount);
+
+    // 获取打卡排行榜
+    List<Map<String, Object>> getCheckinRanking();
 }

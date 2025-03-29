@@ -202,7 +202,6 @@ CREATE TABLE `comment`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-
 -- ----------------------------
 -- Table structure for discussion
 -- ----------------------------
@@ -235,5 +234,19 @@ CREATE TABLE `reply`  (
  INDEX `discussion_id`(`discussion_id` ASC) USING BTREE,
  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`discussion_id`) REFERENCES `discussion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '讨论回复表' ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for member_checkin
+-- ----------------------------
+DROP TABLE IF EXISTS `member_checkin`;
+CREATE TABLE `member_checkin`  (
+  `checkin_id` int NOT NULL AUTO_INCREMENT COMMENT '打卡记录ID',
+  `member_account` int NOT NULL COMMENT '会员账号',
+  `checkin_date` date NOT NULL COMMENT '打卡日期',
+  PRIMARY KEY (`checkin_id`) USING BTREE,
+  UNIQUE KEY `unique_member_date` (`member_account`, `checkin_date`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 SET FOREIGN_KEY_CHECKS = 1;

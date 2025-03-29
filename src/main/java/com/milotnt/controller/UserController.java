@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author MiloTnT [milotntspace@gmail.com]
@@ -121,4 +122,29 @@ public class UserController {
         return "redirect:toUserClass";
     }
 
+    // 打卡功能
+    @RequestMapping("/checkin")
+    public String checkin(HttpSession session, Model model) {
+
+        Member member = (Member) session.getAttribute("user");
+        if (member == null) {
+            return "redirect:/toUserLogin";
+        }
+        Boolean success = memberService.checkin(member.getMemberAccount());
+        if (success) {
+            model.addAttribute("msg", "打卡成功！");
+        } else {
+            model.addAttribute("msg", "今天已经打过卡了！");
+        }
+        System.out.println("您点击了打卡按钮");
+        return "userCheckin";
+    }
+
+    // 打卡排行榜
+    @RequestMapping("/checkinRanking")
+    public String checkinRanking(Model model) {
+        List<Map<String, Object>> ranking = memberService.getCheckinRanking();
+        model.addAttribute("ranking", ranking);
+        return "checkinRanking";
+    }
 }

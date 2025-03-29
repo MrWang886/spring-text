@@ -9,11 +9,22 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4" th:text="${member.memberName} + '的主页'"></h1>
+
 
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">主页</li>
                 </ol>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-check me-1"></i>
+                        每日打卡
+                    </div>
+                    <div class="card-body">
+                        <a th:href="@{/user/checkin}" class="btn btn-primary">点击打卡</a>
+                        <div th:if="${msg != null}" style="margin-top: 10px; color: green;" th:text="${msg}"></div>
+                    </div>
+                </div>
 
             </div>
         </main>

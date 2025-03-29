@@ -1,7 +1,6 @@
 package com.milotnt.controller;
 
 import com.milotnt.pojo.Admin;
-import com.milotnt.pojo.ClassOrder;
 import com.milotnt.pojo.ClassTable;
 import com.milotnt.pojo.Member;
 import com.milotnt.service.AdminService;
@@ -131,7 +130,7 @@ public class LoginController {
     public String toUserMain(Model model, HttpSession session) {
         Member member = (Member) session.getAttribute("user");
         model.addAttribute("member", member);
-        return "userMain";
+        return "userCheckin";
     }
 
 }

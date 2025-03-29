@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author MiloTnT [milotntspace@gmail.com]
@@ -66,4 +67,19 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
+    @Override
+    public Boolean checkin(Integer memberAccount) {
+        Date today = new Date();
+        return memberMapper.insertCheckin(memberAccount, today);
+    }
+
+    @Override
+    public Integer getCheckinCount(Integer memberAccount) {
+        return memberMapper.selectCheckinCountByMemberAccount(memberAccount);
+    }
+
+    @Override
+    public List<Map<String, Object>> getCheckinRanking() {
+        return memberMapper.selectCheckinRanking();
+    }
 }

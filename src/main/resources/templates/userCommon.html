@@ -48,7 +48,16 @@
     <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-
+                <!-- 添加每日打卡导航链接 -->
+                <a class="nav-link" th:href="@{/user/checkin}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
+                    每日打卡
+                </a>
+                <!-- 添加打卡排行榜导航链接 -->
+                <a class="nav-link" th:href="@{/user/checkinRanking}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>
+                    打卡排行榜
+                </a>
                 <!--管理区域-->
                 <div class="sb-sidenav-menu-heading">管理</div>
                 <a class="nav-link" th:href="@{/user/toUserInfo}">

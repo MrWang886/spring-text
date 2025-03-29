@@ -55,4 +55,28 @@
         FROM member
         WHERE member_account = #{memberAccount}
     </select>
+
+    <!-- 插入打卡记录 -->
+    <insert id="insertCheckin" parameterType="map">
+        INSERT INTO member_checkin(member_account, checkin_date)
+        VALUES (#{memberAccount}, #{checkinDate})
+        ON DUPLICATE KEY UPDATE checkin_date = checkin_date
+    </insert>
+
+    <!-- 查询会员的打卡天数 -->
+    <select id="selectCheckinCountByMemberAccount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM member_checkin
+        WHERE member_account = #{memberAccount}
+    </select>
+
+    <!-- 查询所有会员的打卡天数（用于排行榜） -->
+    <select id="selectCheckinRanking" resultType="map">
+        SELECT m.member_name AS memberName, COUNT(c.checkin_id) AS checkinCount
+        FROM member m
+        LEFT JOIN member_checkin c ON m.member_account = c.member_account
+        GROUP BY m.member_account
+        ORDER BY checkinCount DESC
+    </select>
+
 </mapper>
