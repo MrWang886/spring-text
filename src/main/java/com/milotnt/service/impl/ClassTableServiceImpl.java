@@ -43,4 +43,9 @@ public class ClassTableServiceImpl implements ClassTableService {
     public Boolean deleteOrderByClassId(Integer classId) {
         return classTableMapper.deleteOrderByClassId(classId);
     }
+
+    @Override
+    public List<ClassTable> findByCoachAccount(Integer coachAccount) {
+        return classTableMapper.findByCoachAccount(coachAccount);
+    }
 }

@@ -26,6 +26,13 @@
         WHERE class_id = #{classId}
     </select>
 
+    <!-- 根据教练账号查询其负责的课程 -->
+    <select id="findByCoachAccount" parameterType="java.lang.Integer" resultType="classTable">
+        SELECT *
+        FROM class_table
+        WHERE coach_account = #{coachAccount}
+    </select>
+
     <delete id="deleteOrderByClassId" parameterType="java.lang.Integer">
         DELETE
         FROM class_order

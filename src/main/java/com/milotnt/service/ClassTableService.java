@@ -23,6 +23,9 @@ public interface ClassTableService {
     //根据 id 查询课表
     ClassTable selectByClassId(Integer classId);
 
+    //根据教练账号查询其负责的课程
+    List<ClassTable> findByCoachAccount(Integer coachAccount);
+
     //根据 id 删除已预约的课程
     Boolean deleteOrderByClassId(Integer classId);
 
