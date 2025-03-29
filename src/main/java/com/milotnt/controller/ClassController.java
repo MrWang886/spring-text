@@ -76,6 +76,7 @@ public class ClassController {
         }
 
         model.addAttribute("classOrderList", classOrderList);
+        model.addAttribute("classList", classList); // 添加教练负责的课程列表到模型
         return "coachMain"; // 返回教练主页
     }
 

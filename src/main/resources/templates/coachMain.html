@@ -50,6 +50,35 @@
                         </div>
                     </div>
                 </div>
+                <!-- 添加教练负责的课程列表 -->
+                <div th:if="${classList != null}">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            负责的课程列表
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple" class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>课程编号</th>
+                                    <th>课程名称</th>
+                                    <th>开课时间</th>
+                                    <th>课程时长</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="class:${classList}">
+                                    <td th:text="${class.classId}">课程编号</td>
+                                    <td th:text="${class.className}">课程名称</td>
+                                    <td th:text="${class.classBegin}">开课时间</td>
+                                    <td th:text="${class.classTime}">课程时长</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
         <div th:replace="coachCommon::common-footer"></div>
