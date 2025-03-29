@@ -33,6 +33,9 @@ public interface DiscussionService {
     // 删除回复
     void deleteReply(Integer replyId);
 
+    // 新增删除单个回复的方法声明
+    void deleteReplyById(Integer replyId);
+
     // 删除指定帖子的所有回复
     void deleteRepliesByDiscussionId(Integer discussionId);
 
@@ -41,4 +44,5 @@ public interface DiscussionService {
 
     // 查询用户的所有回复
     List<Reply> findRepliesByMemberId(Integer memberId);
+    void deleteReplyById(Reply replyId);
 }

@@ -34,7 +34,7 @@ public interface DiscussionMapper {
     void addReply(Reply reply);
 
     @Delete("DELETE FROM reply WHERE id = #{replyId}")
-    void deleteReply(Integer replyId);
+    void deleteReplyById(Integer replyId);
 
     @Delete("DELETE FROM reply WHERE discussion_id = #{discussionId}")
     void deleteRepliesByDiscussionId(Integer discussionId);
@@ -53,4 +53,6 @@ public interface DiscussionMapper {
 
     @Select("SELECT * FROM reply WHERE member_id = #{memberId} ORDER BY create_time DESC")
     List<Reply> findRepliesByMemberId(Integer memberId);
+    public void deleteReplyById(Reply replyId);
+
 }

@@ -48,4 +48,14 @@ public class AdminController {
         discussionService.deleteRepliesByDiscussionId(id);
         return "redirect:/admin/manage-comments";
     }
+
+    // 删除单个回复
+    @GetMapping("/view-post/{discussionId}/delete-reply/{replyId}")
+    public String deleteSingleReply(
+        @PathVariable Integer discussionId,
+        @PathVariable Integer replyId
+    ) {
+        discussionService.deleteReplyById(replyId);
+        return "redirect:/admin/manage-comments/view-post/" + discussionId;
+    }
 }

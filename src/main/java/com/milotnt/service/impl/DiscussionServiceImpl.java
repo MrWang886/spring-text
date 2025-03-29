@@ -73,7 +73,7 @@ public class DiscussionServiceImpl implements DiscussionService {
         Reply reply = discussionMapper.findReplyById(replyId);
         if (reply != null) {
             // 删除回复
-            discussionMapper.deleteReply(replyId);
+            discussionMapper.deleteReplyById(replyId);
             // 减少帖子回复数
             discussionMapper.decrementReplyCount(reply.getDiscussionId());
         }
@@ -90,8 +90,26 @@ public class DiscussionServiceImpl implements DiscussionService {
     }
 
     @Override
+    public void deleteReplyById(Reply replyId) {
+         discussionMapper.deleteReplyById(replyId);
+    }
+
+    @Override
     @Transactional
     public void deleteRepliesByDiscussionId(Integer discussionId) {
         discussionMapper.deleteRepliesByDiscussionId(discussionId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteReplyById(Integer replyId) {
+        // 获取回复信息
+        Reply reply = discussionMapper.findReplyById(replyId);
+        if (reply != null) {
+            // 删除回复
+            discussionMapper.deleteReplyById(replyId);
+            // 减少帖子回复数
+            discussionMapper.decrementReplyCount(reply.getDiscussionId());
+        }
     }
 }
