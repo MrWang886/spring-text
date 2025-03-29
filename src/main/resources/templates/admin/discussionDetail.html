@@ -2,68 +2,71 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="adminCommon::common-header"></head>
 <body class="sb-nav-fixed">
-<!-- 移除重复的nav标签 -->
 <nav th:replace="adminCommon::common-navbar"></nav>
 
-<div id="layoutSidenav_content">
-    <main>
-        <div class="container-fluid px-4">
-            <!-- 添加响应式布局容器 -->
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <strong th:text="${discussion.title}">帖子标题</strong>
-                    <!-- 添加操作按钮组 -->
-                    <div class="btn-group">
-                        <a th:href="@{/admin/manage-comments}" class="btn btn-sm btn-secondary">返回列表</a>
-                        <!-- 可扩展其他操作按钮 -->
+<div id="layoutSidenav">
+    <div th:replace="adminCommon::common-sidenav"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <!-- 统一面包屑导航 -->
+                <h1 class="mt-4">帖子详情</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/toAdminMain}">管理首页</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/admin/manage-comments}">评论管理</a></li>
+                    <li class="breadcrumb-item active">帖子详情</li>
+                </ol>
+
+                <!-- 帖子内容卡片（保持与用户端一致） -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0" th:text="${discussion.title}"></h5>
+                        <small class="text-muted">
+                            作者：<span th:text="${discussion.memberName}"></span> &nbsp;|&nbsp;
+                            发布时间：<span th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></span>
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <div class="discussion-content" th:text="${discussion.content}"></div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <!-- 添加信息卡片 -->
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">作者：<span th:text="${discussion.memberName}"></span></h5>
-                                    <p class="card-text" th:text="${discussion.content}"></p>
-                                    <small class="text-muted">
-                                        发布时间：<span th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></span>
-                                    </small>
+
+                <!-- 回复列表（样式同步） -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-comments me-1"></i>
+                        回复列表（共<span th:text="${#lists.size(replies)}"></span>条）
+                    </div>
+                    <div class="card-body">
+                        <div th:each="reply : ${replies}" class="border-bottom mb-3 pb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong th:text="${reply.memberName}"></strong>
+                                            <small class="text-muted" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" th:text="${reply.content}"></div>
                                 </div>
+                                <a th:href="@{'/admin/manage-comments/delete-reply/' + ${reply.id}}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('确定删除这条回复？')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             </div>
                         </div>
-
-                    </div>
-
-                    <!-- 回复列表 -->
-                    <div th:if="${replies != null}" class="mt-4">
-                        <h5 class="mb-3">回复列表 (<span th:text="${#lists.size(replies)}">0</span>)</h5>
-                        <ul class="list-group list-group-flush">
-                            <li th:each="reply : ${replies}" class="list-group-item">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <strong th:text="${reply.memberName}"></strong>
-                                        <small class="text-muted" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}"></small>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a th:href="@{|/admin/manage-comments/view-post/${discussion.id}/delete-reply/${reply.id}|}"
-                                           onclick="return confirm('确认删除此回复？')"
-                                           class="btn btn-sm btn-outline-danger">
-                                            删除
-                                        </a>
-                                    </div>
-                                </div>
-                                <p class="mt-2" th:text="${reply.content}"></p>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer th:replace="adminCommon::common-footer"></footer>
+        </main>
+
+        <footer th:replace="adminCommon::common-footer"></footer>
+    </div>
 </div>
 
-<script th:include="adminCommon::common-scripts"></script>
+<!-- 公共脚本 -->
+<div th:replace="adminCommon::common-scripts"></div>
 </body>
 </html>
