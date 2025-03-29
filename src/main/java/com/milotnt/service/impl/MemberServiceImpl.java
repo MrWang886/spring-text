@@ -82,4 +82,12 @@ public class MemberServiceImpl implements MemberService {
     public List<Map<String, Object>> getCheckinRanking() {
         return memberMapper.selectCheckinRanking();
     }
+
+    // 在MemberServiceImpl实现连续打卡天数逻辑（示例，需根据实际数据库设计调整）
+    @Override
+    public Integer getContinuousCheckinDays(Integer memberAccount) {
+        // 假设需要查询连续天数，这里需要根据业务逻辑实现具体查询
+        // 示例返回总打卡次数作为占位符
+        return memberMapper.selectCheckinCountByMemberAccount(memberAccount);
+    }
 }

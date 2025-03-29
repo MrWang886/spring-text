@@ -43,4 +43,8 @@ public interface MemberService {
 
     // 获取打卡排行榜
     List<Map<String, Object>> getCheckinRanking();
+
+    // 在MemberService接口添加连续打卡天数方法
+    Integer getContinuousCheckinDays(Integer memberAccount);
+
 }

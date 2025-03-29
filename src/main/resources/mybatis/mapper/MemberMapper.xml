@@ -79,4 +79,12 @@
         ORDER BY checkinCount DESC
     </select>
 
+    <!-- 在MemberMapper.xml中添加连续打卡天数的查询（需根据实际需求编写SQL） -->
+    <select id="selectContinuousCheckinDays" resultType="integer">
+        <!-- 示例SQL，实际需要计算连续天数 -->
+        SELECT COUNT(*) 
+        FROM member_checkin 
+        WHERE member_account = #{memberAccount}
+    </select>
+
 </mapper>

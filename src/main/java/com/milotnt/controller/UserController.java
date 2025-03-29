@@ -125,18 +125,39 @@ public class UserController {
     // 打卡功能
     @RequestMapping("/checkin")
     public String checkin(HttpSession session, Model model) {
-
         Member member = (Member) session.getAttribute("user");
         if (member == null) {
             return "redirect:/toUserLogin";
         }
-        Boolean success = memberService.checkin(member.getMemberAccount());
+        Integer memberAccount = member.getMemberAccount();
+
+        // 获取累计打卡次数
+        Integer totalCheckins = memberService.getCheckinCount(memberAccount);
+        model.addAttribute("totalCheckins", totalCheckins);
+
+        // 获取连续打卡天数（假设已有方法）
+        Integer continuousDays = memberService.getContinuousCheckinDays(memberAccount);
+        model.addAttribute("continuousDays", continuousDays);
+
+        // 获取当前排名
+        List<Map<String, Object>> ranking = memberService.getCheckinRanking();
+        model.addAttribute("ranking", ranking);
+        
+        int userRank = 1;
+        for (Map<String, Object> entry : ranking) {
+            if (entry.get("memberName").equals(member.getMemberName())) {
+                break;
+            }
+            userRank++;
+        }
+        model.addAttribute("userRank", userRank);
+
+        Boolean success = memberService.checkin(memberAccount);
         if (success) {
             model.addAttribute("msg", "打卡成功！");
         } else {
             model.addAttribute("msg", "今天已经打过卡了！");
         }
-        System.out.println("您点击了打卡按钮");
         return "userCheckin";
     }
 

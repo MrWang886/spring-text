@@ -1,6 +1,88 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="userCommon::common-header"></head>
+<head th:replace="userCommon::common-header">
+    <!-- 新增渐变背景样式 -->
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+        }
+
+        .custom-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            background: white;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hero-section {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse-button {
+            animation: pulse 2s infinite;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            background: var(--secondary-gradient);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+        }
+
+        .pulse-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 1.5s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255,107,107,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,107,107,0); }
+        }
+
+        @keyframes ripple {
+            from { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            to { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        .stats-card {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .checkin-animation {
+            display: none;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
 <body class="sb-nav-fixed">
 <nav th:replace="userCommon::common-navbar"></nav>
 <div id="layoutSidenav">
@@ -9,23 +91,82 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
+                <!-- 新增欢迎区域 -->
+                <div class="hero-section">
+                    <h1 class="display-5 fw-bold">每日成长计划</h1>
+                    <p class="lead">每一次打卡都是通向成功的阶梯</p>
+                </div>
 
-
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">主页</li>
-                </ol>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-calendar-check me-1"></i>
-                        每日打卡
+                <!-- 统计卡片 -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>连续打卡</h5>
+                            <h2 th:text="${continuousDays} + ' 天'">7 天</h2>
+                            <small>当前连续打卡记录</small>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <a th:href="@{/user/checkin}" class="btn btn-primary">点击打卡</a>
-                        <div th:if="${msg != null}" style="margin-top: 10px; color: green;" th:text="${msg}"></div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>累计打卡</h5>
+                            <h2 th:text="${totalCheckins} + ' 次'">36 次</h2>
+                            <small>历史总打卡次数</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>当前排名</h5>
+                            <h2 th:text="|#${userRank}|">#28</h2>
+                            <small>全站用户排名</small>
+                        </div>
                     </div>
                 </div>
 
+                <!-- 的打卡卡片 -->
+                <div class="card custom-card mb-4">
+                    <div class="card-header bg-transparent">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-calendar-alt fa-2x me-3 text-primary"></i>
+                            <div>
+                                <h3 class="mb-0">每日打卡挑战</h3>
+                                <small class="text-muted">保持连续打卡可获得成就奖励</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <lottie-player
+                                src="https://assets2.lottiefiles.com/packages/lf20_gnv0wsah.json"
+                                class="checkin-animation"
+                                speed="1"
+                                loop autoplay>
+                        </lottie-player>
+
+                        <button class="btn pulse-button rounded-pill"
+                                th:href="@{/user/checkin}"
+                                onclick="playAnimation()">
+                            <i class="fas fa-check-circle me-2"></i>
+                            立即打卡
+                        </button>
+
+                        <div class="mt-4">
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-success"
+                                     role="progressbar"
+                                     style="width: 75%"
+                                     aria-valuenow="75"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${msg != null}"
+                             class="alert alert-success mt-3 animate__animated animate__bounceIn"
+                             role="alert"
+                             th:text="${msg}">
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
         <footer th:replace="userCommon::common-footer"></footer>
@@ -33,5 +174,17 @@
 </div>
 
 <div th:include="userCommon::common-scripts"></div>
+<!-- 新增 Lottie 动画库 -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<script>
+    function playAnimation() {
+        const animation = document.querySelector('.checkin-animation');
+        animation.style.display = 'block';
+        setTimeout(() => {
+            animation.style.display = 'none';
+        }, 2000);
+    }
+</script>
 </body>
 </html>
