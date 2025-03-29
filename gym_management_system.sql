@@ -50,33 +50,38 @@ INSERT INTO `class_table` VALUES (0011, '健美操', '2024年2月22日 18:00', '
 -- ----------------------------
 -- Table structure for classorder
 -- ----------------------------
+-- ----------------------------
+-- Table structure for class_order
+-- ----------------------------
 DROP TABLE IF EXISTS `class_order`;
 CREATE TABLE `class_order`  (
-  `class_order_id` int NOT NULL AUTO_INCREMENT COMMENT '报名表id',
-  `class_id` int NULL DEFAULT NULL COMMENT '课程id',
-  `class_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名称',
-  `coach` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教练',
-  `member_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '会员姓名',
-  `member_account` int NULL DEFAULT NULL COMMENT '会员账号',
-  `class_begin` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开课时间',
-  PRIMARY KEY (`class_order_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+`class_order_id` int NOT NULL AUTO_INCREMENT COMMENT '报名表id',
+`class_id` int NULL DEFAULT NULL COMMENT '课程id',
+`class_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '课程名称',
+`coach` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '教练',
+ `member_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '会员姓名',
+ `member_account` int NULL DEFAULT NULL COMMENT '会员账号',
+ `class_begin` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '开课时间',
+ `coach_account` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '教练账号',
+ `coach_password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '教练密码',
+ PRIMARY KEY (`class_order_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of classorder
 -- ----------------------------
-INSERT INTO `class_order` VALUES (1, 0002, '瑜伽', '瑜伽教练', '李四', 202400788, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (2, 0002, '瑜伽', '瑜伽教练', '王五', 202432539, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (3, 0004, '运动康复', '运动康复教练', 'Mike', 202456754, '2024年2月2日 10:00');
-INSERT INTO `class_order` VALUES (4, 0001, '增肌', '增肌教练', 'Mike', 202456754, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (5, 0001, '增肌', '增肌教练', 'Tylor', 202483406, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (6, 0002, '瑜伽', '瑜伽教练', 'Tylor', 202483406, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (7, 0001, '增肌', '增肌教练', '李四', 202400788, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (8, 0001, '增肌', '增肌教练', '马六', 202486416, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (9, 0003, '减脂', '减脂教练', '马六', 202486416, '2024年3月6日 18:00');
-INSERT INTO `class_order` VALUES (10, 0003, '减脂', '减脂教练', 'Lily', 202423664, '2024年3月6日 18:00');
-INSERT INTO `class_order` VALUES (11, 0003, '减脂', '减脂教练', 'Emma', 202453468, '2024年3月6日 18:00');
-
+INSERT INTO `class_order` VALUES (1, 2, '瑜伽', '瑜伽教练', '李四', 202400788, '2024年1月2日 10:20', '3001', '123456');
+INSERT INTO `class_order` VALUES (2, 2, '瑜伽', '瑜伽教练', '王五', 202432539, '2024年1月2日 10:20', '3002', '123456');
+INSERT INTO `class_order` VALUES (3, 4, '运动康复', '运动康复教练', 'Mike', 202456754, '2024年2月2日 10:00', '3003', '123456');
+INSERT INTO `class_order` VALUES (4, 1, '增肌', '增肌教练', 'Mike', 202456754, '2024年1月1日 15:00', '3004', '123456');
+INSERT INTO `class_order` VALUES (5, 1, '增肌', '增肌教练', 'Tylor', 202483406, '2024年1月1日 15:00', '3005', '123456');
+INSERT INTO `class_order` VALUES (6, 2, '瑜伽', '瑜伽教练', 'Tylor', 202483406, '2024年1月2日 10:20', '3006', '123456');
+INSERT INTO `class_order` VALUES (7, 1, '增肌', '增肌教练', '李四', 202400788, '2024年1月1日 15:00', '3007', '123456');
+INSERT INTO `class_order` VALUES (8, 1, '增肌', '增肌教练', '马六', 202486416, '2024年1月1日 15:00', '3008', '123456');
+INSERT INTO `class_order` VALUES (9, 3, '减脂', '减脂教练', '马六', 202486416, '2024年3月6日 18:00', '3009', '123456');
+INSERT INTO `class_order` VALUES (10, 3, '减脂', '减脂教练', 'Lily', 202423664, '2024年3月6日 18:00', '30010', '123456');
+INSERT INTO `class_order` VALUES (11, 3, '减脂', '减脂教练', 'Emma', 202453468, '2024年3月6日 18:00', '30011', '123456');
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 -- ----------------------------

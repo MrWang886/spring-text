@@ -1,11 +1,13 @@
 package com.milotnt.controller;
 
 import com.milotnt.pojo.Admin;
+import com.milotnt.pojo.ClassOrder;
 import com.milotnt.pojo.Member;
 import com.milotnt.service.AdminService;
 import com.milotnt.service.EmployeeService;
 import com.milotnt.service.EquipmentService;
 import com.milotnt.service.MemberService;
+import com.milotnt.service.CoachService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class LoginController {
     private EmployeeService employeeService;
     @Autowired
     private EquipmentService equipmentService;
+    @Autowired
+    private CoachService coachService;
 
     //主页、跳转管理员登录页面
     @RequestMapping("/")
@@ -43,10 +47,10 @@ public class LoginController {
         return "userLogin";
     }
 
-    //跳转会员登录页面
-    @RequestMapping("/toRegisterAccount")
+    //跳转教练登录页面
+    @RequestMapping("/toAoachLogin")
     public String toRegisterAccount() {
-        return "registerAccount";
+        return "coachLogin";
     }
     //管理员登录
     @RequestMapping("/adminLogin")
@@ -94,6 +98,17 @@ public class LoginController {
         return "userLogin";
     }
 
+    //教练登录
+    @RequestMapping("/coachLogin")
+    public String coachLogin(ClassOrder classOrder, Model model, HttpSession session) {
+        ClassOrder coach1 = coachService.coachLogin(classOrder);
+        if (coach1 != null) {
+            session.setAttribute("coach", coach1);
+            return "coachMain";
+        }
+        model.addAttribute("msg", "您输入的账号或密码有误，请重新输入！");
+        return "coachLogin";
+    }
 
     //跳转管理员主页
     @RequestMapping("/toAdminMain")

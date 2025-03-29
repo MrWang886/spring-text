@@ -104,8 +104,14 @@ public class UserController {
         String memberName = member.getMemberName();
         Integer memberAccount = member.getMemberAccount();
 
+
+        // 创建ClassOrder实例，用于后续的操作
         ClassOrder classOrder = new ClassOrder(classId1, className, coach, memberName, memberAccount, classBegin);
+
+        // 获取当前成员的账户信息
         Integer memberAccount1 = member.getMemberAccount();
+
+        // 使用类ID和成员账户信息查询对应的ClassOrder记录
         ClassOrder classOrder1 = classOrderService.selectMemberByClassIdAndMemberAccount(classId1, memberAccount1);
 
         if (classOrder1 == null) {
