@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="adminCommon::common-header"></head>
+<body>
+    <nav th:replace="adminCommon::common-navbar"></nav>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong th:text="${discussion.title}">帖子标题</strong>
+                    </div>
+                    <div class="card-body">
+                        <p>作者： <span th:text="${discussion.memberName}"></span></p>
+                        <p>内容： <span th:text="${discussion.content}"></span></p>
+                        <p>发布时间： <span th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></span></p>
+                        
+                        <!-- 回复列表 -->
+                        <div th:if="${replies != null}">
+                            <h5>回复列表</h5>
+                            <ul class="list-group">
+                                <li th:each="reply : ${replies}" class="list-group-item">
+                                    <div>用户：<span th:text="${reply.memberName}"></span></div>
+                                    <div>内容：<span th:text="${reply.content}"></span></div>
+                                    <div>时间：<span th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}"></span></div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 返回按钮 -->
+                        <a th:href="@{/admin/manage-comments}" class="btn btn-secondary">返回列表</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="adminCommon::common-footer"></footer>
+    </div>
+
+    <script th:include="adminCommon::common-scripts"></script>
+</body>
+</html>

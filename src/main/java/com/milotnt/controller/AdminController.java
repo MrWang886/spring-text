@@ -26,13 +26,15 @@ public class AdminController {
         return "admin/manageComments";
     }
 
+    // 确保路径与Thymeleaf生成的URL完全匹配
+    // 查看帖子详情
     @GetMapping("/view-post/{id}")
     public String viewPost(@PathVariable Integer id, Model model) {
         Discussion discussion = discussionService.findById(id);
         List<Reply> replies = discussionService.findRepliesByDiscussionId(id);
         model.addAttribute("discussion", discussion);
         model.addAttribute("replies", replies);
-        return "admin/viewPost"; // 假设有一个新的视图文件来显示帖子详情
+        return "admin/discussionDetail"; // 确保模板路径正确
     }
 
     @GetMapping("/delete-post/{id}")

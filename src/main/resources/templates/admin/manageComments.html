@@ -30,24 +30,34 @@
                             </thead>
                             <tbody>
                             <tr th:each="discussion : ${discussions}">
-                                <td>
-                                    <a th:href="@{/discussion/detail/{id}(id=${discussion.id})}"
-                                       th:text="${discussion.title}"></a>
-                                </td>
-                                <td th:text="${discussion.memberName}"></td>
 
+                                <td th:text="${discussion.title}"></td>
+                                <td th:text="${discussion.memberName}"></td>
                                 <td th:text="${#dates.format(discussion.createTime, 'yyyy-MM-dd HH:mm')}"></td>
                                 <td>
-                                    <a th:href="@{/admin/manage-comments/delete-post/{id}(id=${discussion.id})}"
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('确定要删除这个帖子吗？所有相关回复也会被删除。')">
-                                        <i class="fas fa-trash"></i> 删除帖子
-                                    </a>
-                                    <a th:href="@{/admin/manage-comments/delete-replies/{id}(id=${discussion.id})}"
-                                       class="btn btn-sm btn-danger"
-                                       onclick="return confirm('确定要删除所有回复吗？')">
-                                        <i class="fas fa-trash-alt"></i> 删除回复
-                                    </a>
+
+                                    <div class="button-group">
+                                        <a th:href="@{/admin/manage-comments/view-post/{id}(id=${discussion.id})}"
+                                           class="custom-btn custom-view-btn">
+                                            <span>查看详情</span>
+                                            <i class="fas fa-arrow-right btn-icon"></i>
+                                        </a>
+
+                                        <a th:href="@{/admin/manage-comments/delete-post/{id}(id=${discussion.id})}"
+                                           class="custom-btn custom-delete-btn"
+                                           onclick="return confirm('确定要删除这个帖子吗？所有相关回复也会被删除。')">
+                                            <i class="fas fa-trash btn-icon"></i>
+                                            <span>删除帖子</span>
+                                        </a>
+
+                                        <a th:href="@{/admin/manage-comments/delete-replies/{id}(id=${discussion.id})}"
+                                           class="custom-btn custom-clear-btn"
+                                           onclick="return confirm('确定要删除所有回复吗？')">
+                                            <i class="fas fa-comments btn-icon"></i>
+                                            <span>清空回复</span>
+                                        </a>
+                                    </div>
+
                                 </td>
                             </tr>
                             </tbody>

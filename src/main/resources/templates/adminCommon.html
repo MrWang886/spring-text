@@ -107,6 +107,12 @@
     <script src="/static/assets/demo/chart-bar-demo.js" th:src="@{/assets/demo/chart-bar-demo.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="/static/js/datatables-simple-demo.js" th:src="@{/js/datatables-simple-demo.js}"></script>
+    <!-- 在common-scripts中添加必要的前端路由JS -->
+    <script>
+document.querySelectorAll('[th:href]').forEach(el => {
+    el.href = el.getAttribute('th:href').replace(/\{id\}/, el.dataset.id);
+});
+</script>
 </div>
 
 </body>
