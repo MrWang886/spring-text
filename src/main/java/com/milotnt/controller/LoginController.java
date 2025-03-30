@@ -105,7 +105,7 @@ public class LoginController {
         if (coach1 != null) {
             session.setAttribute("coach", coach1);
             // 修改：跳转到课程预约页面
-            return "redirect:/class/selClassOrder";
+            return "redirect:/class/selectCoachMember";
         }
         model.addAttribute("msg", "您输入的账号或密码有误，请重新输入！");
         return "coachLogin";

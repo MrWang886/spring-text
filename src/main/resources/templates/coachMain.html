@@ -39,6 +39,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="order:${classOrderList}">
+                                    <!-- 使用ClassOrder实际字段 -->
                                     <td th:text="${order.classId}">课程编号</td>
                                     <td th:text="${order.className}">课程名称</td>
                                     <td th:text="${order.classBegin}">开课时间</td>

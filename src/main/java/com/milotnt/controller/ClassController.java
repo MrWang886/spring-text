@@ -76,10 +76,38 @@ public class ClassController {
 
         return "selectClassOrder"; 
     }
+    // //获取用户报名信息课程和教练教练课程id一样的数据
+    @RequestMapping("/selectCoachMember")
+    public String selectCoachMember(HttpSession session, Model model) {
+        // 从session获取教练信息
+        ClassTable coach = (ClassTable) session.getAttribute("coach");
+        if (coach == null) {
+            return "redirect:/toAoachLogin";
+        }
+        
+        // 获取教练账号
+        Integer coachAccount = Integer.valueOf(coach.getCoachAccount());
+        
+        // 查询教练负责的所有课程
+        List<ClassTable> classList = classTableService.findByCoachAccount(coachAccount);
+        model.addAttribute("classList", classList);
+        
+        // 为每个课程收集报名信息
+        List<ClassOrder> combinedOrders = new ArrayList<>();
+        for (ClassTable ct : classList) {
+            List<ClassOrder> orders = classOrderService.selectMemberOrderList(ct.getClassId());
+            combinedOrders.addAll(orders);
+        }
+        model.addAttribute("classOrderList", combinedOrders);
+        
+        return "coachMain";
+    }
 
     // 跳转教练个人信息页面
     @RequestMapping("/toCoachInfo")
     public String toCoachInfo(HttpSession session, Model model) {
+
+
         ClassTable coach = (ClassTable) session.getAttribute("coach");
         if (coach == null) {
             return "redirect:/toAoachLogin"; // 如果未登录，重定向到登录页面
