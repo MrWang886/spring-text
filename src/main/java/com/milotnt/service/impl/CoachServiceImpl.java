@@ -13,8 +13,8 @@ public class CoachServiceImpl implements CoachService {
     private CoachMapper coachMapper;
 
     @Override
-    public ClassTable coachLogin(ClassTable classTable) {
-        return coachMapper.selectByAccountAndPassword(Integer.valueOf(classTable.getCoachAccount()), classTable.getCoachPassword());
+    public ClassTable coachLogin(String coachAccount, String coachPassword) {
+        return coachMapper.selectByAccountAndPassword(coachAccount, coachPassword);
     }
 
     @Override

@@ -101,7 +101,7 @@ public class LoginController {
     //教练登录
     @RequestMapping("/coachLogin")
     public String coachLogin(ClassTable classTable, Model model, HttpSession session) {
-        ClassTable coach1 = coachService.coachLogin(classTable);
+        ClassTable coach1 = coachService.coachLogin(classTable.getCoachAccount(), classTable.getCoachPassword());
         if (coach1 != null) {
             session.setAttribute("coach", coach1);
             // 修改：跳转到课程预约页面
