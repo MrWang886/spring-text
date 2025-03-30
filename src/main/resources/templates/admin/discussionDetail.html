@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="mt-2" th:text="${reply.content}"></div>
                                 </div>
-                                <a th:href="@{'/admin/manage-comments/delete-reply/' + ${reply.id}}"
+                                <a th:href="@{/admin/manage-comments/view-post/{discussionId}/delete-reply/{replyId}(discussionId=${discussion.id}, replyId=${reply.id})}"
                                    class="btn btn-sm btn-outline-danger"
                                    onclick="return confirm('确定删除这条回复？')">
                                     <i class="fas fa-trash-alt"></i>

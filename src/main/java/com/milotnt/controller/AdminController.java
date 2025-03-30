@@ -49,7 +49,7 @@ public class AdminController {
         return "redirect:/admin/manage-comments";
     }
 
-    // 删除单个回复
+    // 确保AdminController的deleteSingleReply方法路径正确匹配
     @GetMapping("/view-post/{discussionId}/delete-reply/{replyId}")
     public String deleteSingleReply(
         @PathVariable Integer discussionId,
