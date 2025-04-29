@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 /**
  * @author MiloTnT [milotntspace@gmail.com]
- * @date 2021/8/16
+ * @date 2025/3/15
  */
 
 @Slf4j
@@ -49,7 +49,7 @@ public class MemberController {
     public String addMember(Member member) {
         //会员账号&卡号随机生成
         Random random = new Random();
-        String account1 = "2021";
+        String account1 = "2025";
         for (int i = 0; i < 5; i++) {
             account1 += random.nextInt(10);
         }

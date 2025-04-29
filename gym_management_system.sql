@@ -3,6 +3,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for admin
+-- 管理员账号表
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
@@ -12,20 +13,15 @@ CREATE TABLE `admin`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES (1001, '123456');
 INSERT INTO `admin` VALUES (1002, '123456');
 INSERT INTO `admin` VALUES (1003, '123456');
 
--- ----------------------------
--- Table structure for classtable
--- ----------------------------
--- ----------------------------
--- Table structure for class_order
--- ----------------------------
+
 -- ----------------------------
 -- Table structure for class_table
+-- 课程排期表（记录课程名称、时间、教练等详细信息）
 -- ----------------------------
 DROP TABLE IF EXISTS `class_table`;
 CREATE TABLE `class_table`  (
@@ -40,30 +36,25 @@ PRIMARY KEY (`class_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of class_table
 -- ----------------------------
-INSERT INTO `class_table` VALUES (1, '增肌', '2024年1月1日 15:00', '60分钟', '增肌教练', '3001', '123456');
-INSERT INTO `class_table` VALUES (3, '减脂', '2024年3月6日 18:00', '90分钟', '减脂教练', '3003', '123456');
-INSERT INTO `class_table` VALUES (4, '运动康复', '2024年2月2日 10:00', '45分钟', '运动康复教练', '3004', '123456');
-INSERT INTO `class_table` VALUES (5, '综合格斗', '2024年2月3日 15:00', '60分钟', '综合格斗教练', '3005', '123456');
-INSERT INTO `class_table` VALUES (6, '塑形', '2024年2月3日 15:00', '60分钟', '塑形教练', '3006', '123456');
-INSERT INTO `class_table` VALUES (7, '普拉提', '2024年3月1日 17:30', '60分钟', '普拉提教练', '3007', '123456');
-INSERT INTO `class_table` VALUES (8, '爵士舞', '2024年2月22日 09:00', '90分钟', '爵士舞教练', '3008', '123456');
-INSERT INTO `class_table` VALUES (9, '杠铃操', '2024年2月4日 15:00', '60分钟', '杠铃操教练', '3009', '123456');
-INSERT INTO `class_table` VALUES (10, '动感单车', '2024年3月8日 15:00', '45分钟', '动感单车教练', '30010', '123456');
-INSERT INTO `class_table` VALUES (11, '健美操', '2024年2月22日 18:00', '60分钟', '健美操教练', '30011', '123456');
+INSERT INTO `class_table` VALUES (1, '增肌', '2025年1月1日 15:00', '60分钟', '增肌教练', '3001', '123456');
+INSERT INTO `class_table` VALUES (3, '减脂', '2025年3月6日 18:00', '90分钟', '减脂教练', '3003', '123456');
+INSERT INTO `class_table` VALUES (4, '运动康复', '2025年2月2日 10:00', '45分钟', '运动康复教练', '3004', '123456');
+INSERT INTO `class_table` VALUES (5, '综合格斗', '2025年2月3日 15:00', '60分钟', '综合格斗教练', '3005', '123456');
+INSERT INTO `class_table` VALUES (6, '塑形', '2025年2月3日 15:00', '60分钟', '塑形教练', '3006', '123456');
+INSERT INTO `class_table` VALUES (7, '普拉提', '2025年3月1日 17:30', '60分钟', '普拉提教练', '3007', '123456');
+INSERT INTO `class_table` VALUES (8, '爵士舞', '2025年2月22日 09:00', '90分钟', '爵士舞教练', '3008', '123456');
+INSERT INTO `class_table` VALUES (9, '杠铃操', '2025年2月4日 15:00', '60分钟', '杠铃操教练', '3009', '123456');
+INSERT INTO `class_table` VALUES (10, '动感单车', '2025年3月8日 15:00', '45分钟', '动感单车教练', '30010', '123456');
+INSERT INTO `class_table` VALUES (11, '健美操', '2025年2月22日 18:00', '60分钟', '健美操教练', '30011', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;
 
 
--- ----------------------------
--- Table structure for classorder
--- ----------------------------
+
 -- ----------------------------
 -- Table structure for class_order
--- ----------------------------
--- ----------------------------
--- Table structure for class_order
+-- 课程报名记录表
 -- ----------------------------
 DROP TABLE IF EXISTS `class_order`;
 CREATE TABLE `class_order`  (
@@ -78,26 +69,26 @@ PRIMARY KEY (`class_order_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of class_order
 -- ----------------------------
-INSERT INTO `class_order` VALUES (1, 2, '瑜伽', '瑜伽教练', '李四', 202400788, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (2, 2, '瑜伽', '瑜伽教练', '王五', 202432539, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (3, 4, '运动康复', '运动康复教练', 'Mike', 202456754, '2024年2月2日 10:00');
-INSERT INTO `class_order` VALUES (4, 1, '增肌', '增肌教练', 'Mike', 202456754, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (5, 1, '增肌', '增肌教练', 'Tylor', 202483406, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (6, 2, '瑜伽', '瑜伽教练', 'Tylor', 202483406, '2024年1月2日 10:20');
-INSERT INTO `class_order` VALUES (7, 1, '增肌', '增肌教练', '李四', 202400788, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (8, 1, '增肌', '增肌教练', '马六', 202486416, '2024年1月1日 15:00');
-INSERT INTO `class_order` VALUES (9, 3, '减脂', '减脂教练', '马六', 202486416, '2024年3月6日 18:00');
-INSERT INTO `class_order` VALUES (10, 3, '减脂', '减脂教练', 'Lily', 202423664, '2024年3月6日 18:00');
-INSERT INTO `class_order` VALUES (11, 3, '减脂', '减脂教练', 'Emma', 202453468, '2024年3月6日 18:00');
-INSERT INTO `class_order` VALUES (15, 1, '增肌', '增肌教练', '张三', 202009867, '2024年1月1日 15:00');
+INSERT INTO `class_order` VALUES (1, 2, '瑜伽', '瑜伽教练', '李四', 202500788, '2025年1月2日 10:20');
+INSERT INTO `class_order` VALUES (2, 2, '瑜伽', '瑜伽教练', '王五', 202532539, '2025年1月2日 10:20');
+INSERT INTO `class_order` VALUES (3, 4, '运动康复', '运动康复教练', 'Mike', 202556754, '2025年2月2日 10:00');
+INSERT INTO `class_order` VALUES (4, 1, '增肌', '增肌教练', 'Mike', 202556754, '2025年1月1日 15:00');
+INSERT INTO `class_order` VALUES (5, 1, '增肌', '增肌教练', 'Tylor', 202583406, '2025年1月1日 15:00');
+INSERT INTO `class_order` VALUES (6, 2, '瑜伽', '瑜伽教练', 'Tylor', 202583406, '2025年1月2日 10:20');
+INSERT INTO `class_order` VALUES (7, 1, '增肌', '增肌教练', '李四', 202500788, '2025年1月1日 15:00');
+INSERT INTO `class_order` VALUES (8, 1, '增肌', '增肌教练', '马六', 202586416, '2025年1月1日 15:00');
+INSERT INTO `class_order` VALUES (9, 3, '减脂', '减脂教练', '马六', 202586416, '2025年3月6日 18:00');
+INSERT INTO `class_order` VALUES (10, 3, '减脂', '减脂教练', 'Lily', 202523664, '2025年3月6日 18:00');
+INSERT INTO `class_order` VALUES (11, 3, '减脂', '减脂教练', 'Emma', 202553468, '2025年3月6日 18:00');
+INSERT INTO `class_order` VALUES (15, 1, '增肌', '增肌教练', '张三', 202009867, '2025年1月1日 15:00');
 
 SET FOREIGN_KEY_CHECKS = 1;
 
 
 -- ----------------------------
 -- Table structure for member
+-- 会员信息表
 -- ----------------------------
 DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member`  (
@@ -116,23 +107,23 @@ CREATE TABLE `member`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of member
 -- ----------------------------
 INSERT INTO `member` VALUES (202009867, '123456', '张三', '女', 24, 182, 60, 13515548482, '2020-06-05', 40, 40);
-INSERT INTO `member` VALUES (202400788, '123456', '李四', '男', 31, 178, 60, 13131554873, '2024-01-01', 50, 50);
-INSERT INTO `member` VALUES (202432539, '123456', '王五', '男', 31, 178, 60, 13154875489, '2024-01-01', 40, 40);
-INSERT INTO `member` VALUES (202486416, '123456', '马六', '女', 23, 160, 45, 13124576857, '2024-01-16', 30, 30);
-INSERT INTO `member` VALUES (202406725, '123456', 'Tom', '男', 24, 178, 88, 13758784959, '2024-02-26', 30, 30);
-INSERT INTO `member` VALUES (202483406, '123456', 'Tylor', '女', 19, 170, 60, 13786457488,'2024-02-27', 30, 30);
-INSERT INTO `member` VALUES (202476587, '123456', 'Jack', '男', 33, 177, 90, 13767546666, '2024-02-27', 30, 30);
-INSERT INTO `member` VALUES (202456754, '123456', 'Mike', '男', 36, 166, 67, 13786532448, '2024-02-28', 30, 30);
-INSERT INTO `member` VALUES (202453468, '123456', 'Emma', '女', 25, 173, 44, 13786457124,  '2024-03-01', 50, 50);
-INSERT INTO `member` VALUES (202421345, '123456', 'Ava', '女', 28, 160, 40, 13754457488, '2024-03-02', 30, 30);
-INSERT INTO `member` VALUES (202489776, '123456', 'Chloe', '女', 27, 170, 50, 13986337489,  '2024-03-23', 30, 30);
-INSERT INTO `member` VALUES (202423664, '123456', 'Lily', '女', 25, 165, 51, 15986457423,  '2024-03-27', 30, 30);
+INSERT INTO `member` VALUES (202500788, '123456', '李四', '男', 31, 178, 60, 13131554873, '2025-01-01', 50, 50);
+INSERT INTO `member` VALUES (202532539, '123456', '王五', '男', 31, 178, 60, 13154875489, '2025-01-01', 40, 40);
+INSERT INTO `member` VALUES (202586416, '123456', '马六', '女', 23, 160, 45, 13124576857, '2025-01-16', 30, 30);
+INSERT INTO `member` VALUES (202506725, '123456', 'Tom', '男', 24, 178, 88, 13758784959, '2025-02-26', 30, 30);
+INSERT INTO `member` VALUES (202583406, '123456', 'Tylor', '女', 19, 170, 60, 13786457488,'2025-02-27', 30, 30);
+INSERT INTO `member` VALUES (202576587, '123456', 'Jack', '男', 33, 177, 90, 13767546666, '2025-02-27', 30, 30);
+INSERT INTO `member` VALUES (202556754, '123456', 'Mike', '男', 36, 166, 67, 13786532448, '2025-02-28', 30, 30);
+INSERT INTO `member` VALUES (202553468, '123456', 'Emma', '女', 25, 173, 44, 13786457124,  '2025-03-01', 50, 50);
+INSERT INTO `member` VALUES (202521345, '123456', 'Ava', '女', 28, 160, 40, 13754457488, '2025-03-02', 30, 30);
+INSERT INTO `member` VALUES (202589776, '123456', 'Chloe', '女', 27, 170, 50, 13986337489,  '2025-03-23', 30, 30);
+INSERT INTO `member` VALUES (202523664, '123456', 'Lily', '女', 25, 165, 51, 15986457423,  '2025-03-27', 30, 30);
 
 -- ----------------------------
 -- Table structure for employee
+ -- 员工信息表
 -- ----------------------------
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee`  (
@@ -147,17 +138,17 @@ CREATE TABLE `employee`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of employee
 -- ----------------------------
 INSERT INTO `employee` VALUES (101038721,  '教练1', '女', 26, '2016-06-29', '健身教练', '健美冠军');
 INSERT INTO `employee` VALUES (101068283,  '教练2', '男', 34, '2020-01-06', '健身教练', '职业教练');
 INSERT INTO `employee` VALUES (101053687,  '教练3', '男', 30, '2020-06-06', '健身教练', '职业教练');
-INSERT INTO `employee` VALUES (101045354,  '教练4', '男', 24, '2024-01-07', '健身教练', '职业教练');
+INSERT INTO `employee` VALUES (101045354,  '教练4', '男', 24, '2025-01-07', '健身教练', '职业教练');
 INSERT INTO `employee` VALUES (101058973,  '保洁1', '女', 48, '2019-08-24', '保洁员', '模范员工');
 INSERT INTO `employee` VALUES (101034208,  '保洁2', '女', 48, '2010-08-01', '保洁员', '');
 
 -- ----------------------------
 -- Table structure for equipment
+-- 器材信息表
 -- ----------------------------
 DROP TABLE IF EXISTS `equipment`;
 CREATE TABLE `equipment`  (
@@ -170,7 +161,6 @@ CREATE TABLE `equipment`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of equipment
 -- ----------------------------
 INSERT INTO `equipment` VALUES (1, '哑铃1', '1号房间', '正常', '');
 INSERT INTO `equipment` VALUES (2, '杠铃1', '2号房间', '损坏', '待维修');
@@ -183,6 +173,7 @@ INSERT INTO `equipment` VALUES (7, '杠铃2', '1号房间', '正常', '');
 
 -- ----------------------------
 -- Table structure for comment
+-- 课程评价表
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
@@ -204,6 +195,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
 -- Table structure for discussion
+-- 会员讨论区主表
 -- ----------------------------
 DROP TABLE IF EXISTS `discussion`;
 CREATE TABLE `discussion`  (
@@ -221,6 +213,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
 -- Table structure for reply
+-- 讨论区回复表
 -- ----------------------------
 DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply`  (
@@ -239,6 +232,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
 -- Table structure for member_checkin
+-- 会员考勤表
 -- ----------------------------
 DROP TABLE IF EXISTS `member_checkin`;
 CREATE TABLE `member_checkin`  (
