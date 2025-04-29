@@ -192,7 +192,7 @@
                 const formGroup = field.closest('.form-floating');
                 formGroup.classList.add('is-invalid');
                 const errorDiv = document.createElement('div');
-                errorDiv.className = 'invalid-feedback';
+                errorDiv.className = 'invalid-feedback animate__animated animate__shakeX';
                 errorDiv.textContent = message;
                 formGroup.appendChild(errorDiv);
             }
@@ -204,14 +204,31 @@
             // 验证逻辑
             if (!loginForm.adminAccount.value.trim()) {
                 showError(loginForm.adminAccount, '请输入管理员账号');
+                loginForm.adminAccount.focus();
                 return false;
             }
             if (!loginForm.adminPassword.value.trim()) {
                 showError(loginForm.adminPassword, '请输入登录密码');
+                loginForm.adminPassword.focus();
                 return false;
             }
             return true;
         }
+
+        // 输入框聚焦时清除错误提示
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    const formGroup = input.closest('.form-floating');
+                    formGroup.classList.remove('is-invalid');
+                    const errorDiv = formGroup.querySelector('.invalid-feedback');
+                    if (errorDiv) {
+                        errorDiv.remove();
+                    }
+                });
+            });
+        });
     </script>
     </body>
     </html>
