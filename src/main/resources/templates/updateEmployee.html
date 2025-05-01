@@ -19,7 +19,7 @@
 
                 <div class="card mb-4">
 
-                    <form th:action="@{/employee/updateEmployee}" method="post">
+                    <form th:action="@{/employee/updateEmployee}" method="post" onsubmit="return validateForm(this)">
                         <div th:each="emp:${employeeList}">
                             <table class="table table-hover">
                                 <tr>
@@ -63,6 +63,37 @@
                             </div>
                         </div>
                     </form>
+
+                    <script>
+                        // 表单验证函数
+                        function validateForm(form) {
+                            const fields = [
+                                { name: 'employeeName', label: '姓名' },
+                                { name: 'employeeGender', label: '性别' },
+                                { name: 'employeeAge', label: '年龄' },
+                                { name: 'staff', label: '职务' }
+                            ];
+
+                            let isValid = true;
+
+                            // 清除之前的错误提示
+                            document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+                            fields.forEach(field => {
+                                const input = form.querySelector(`[name="${field.name}"]`);
+                                if (!input.value.trim()) {
+                                    isValid = false;
+                                    const td = input.closest('td');
+                                    const errorDiv = document.createElement('div');
+                                    errorDiv.className = 'error-message text-danger mt-2 animate__animated animate__shakeX';
+                                    errorDiv.textContent = `${field.label}为必填项`;
+                                    td.appendChild(errorDiv);
+                                }
+                            });
+
+                            return isValid;
+                        }
+                    </script>
                 </div>
             </div>
         </main>
